@@ -9,8 +9,20 @@ export const canvasSize = {
 };
 
 function Canvas({ store }) {
+  const handleOnClick = (event, box) => {
+    event.stopPropagation();
+    store.selectBox(box);
+  };
+
+  const onDragEnd = (box, { x: left, y: top }) => {
+    box.move(left, top);
+  };
+
   return (
-    <div className="canva" style={{ width: canvasSize.width, height: canvasSize.height }}>
+    <div
+      className="canva"
+      style={{ width: canvasSize.width, height: canvasSize.height }}
+    >
       {store.boxes.map((box, index) => (
         <Box
           id={box.id}
@@ -21,7 +33,10 @@ function Canvas({ store }) {
           width={box.width}
           height={box.height}
           box={box}
-          onClick={() => store.selectBox(box)}
+          isSelected={box.isSelected}
+          onClick={(event) => handleOnClick(event, box)}
+          onClickOutside={() => store.unselectAllBoxes()}
+          onDragEnd={(coordinates) => onDragEnd(box, coordinates)}
         />
       ))}
     </div>

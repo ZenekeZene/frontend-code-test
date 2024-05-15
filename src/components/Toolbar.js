@@ -16,24 +16,37 @@ const createNewBox = () => {
 };
 
 function Toolbar({ store }) {
+  const isAnyBoxSelected = store.isAnyBoxSelected();
+
   const handleAddBox = () => {
     const newBox = createNewBox();
     store.addBox(newBox);
   };
 
   const handleRemoveBox = () => {
-    if (!store.isAnyBoxSelected()) return;
+    if (!isAnyBoxSelected) return;
     store.removeBox();
+  };
+
+  const handleChangeColor = (event) => {
+    if (!isAnyBoxSelected) return;
+    store.selectedBox.changeColor(event.target.value);
   };
 
   return (
     <div className="toolbar">
-      <button onClick={handleAddBox}>Add Box</button>
       <button
-        disabled={!store.isAnyBoxSelected()}
+        onClick={handleAddBox}
+      >Add Box</button>
+      <button
+        disabled={!isAnyBoxSelected}
         onClick={handleRemoveBox}
       >Remove Box</button>
-      <input type="color" />
+      <input
+        disabled={!isAnyBoxSelected}
+        type="color"
+        onChange={handleChangeColor}
+      />
       <span>No boxes selected</span>
     </div>
   );

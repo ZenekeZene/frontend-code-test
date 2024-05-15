@@ -8,6 +8,7 @@ import { debugStore } from "../stores/useStoreDebug";
 
 function App() {
   debugStore(store);
+
   return (
     <div className="app">
       <Toolbar store={store} />

@@ -1,19 +1,31 @@
 import React from "react";
 import { observer } from "mobx-react";
+import { useDraggable } from "./useDraggable";
+import { useClickOutside } from "../../hooks/useClickOutside";
 
-function BoxDraggable(props) {
+const BoxDraggable = (props) => {
+  const { id, color, width, height, left, top, isSelected } = props;
+  const initialCoordinates = { x: left, y: top };
+  const { onClick, onClickOutside, onDragEnd } = props;
+  const boxRef = useClickOutside({ onClickOutside });
+
+  useDraggable({ boxRef, initialCoordinates, onDragEnd });
+
+  const style = {
+    backgroundColor: color,
+    width: width,
+    height: height,
+    transform: `translate(${left}px, ${top}px)`,
+    border: isSelected ? "2px solid #333" : "none"
+  };
+
   return (
     <div
-      id={props.id}
+      ref={boxRef}
+      id={id}
       className="box"
-      style={{
-        backgroundColor: props.color,
-        width: props.width,
-        height: props.height,
-        transform: `translate(${props.left}px, ${props.top}px)`,
-        border: props.box.isSelected ? "2px solid #333" : "none"
-      }}
-      onClick={props.onClick}
+      style={style}
+      onClick={onClick}
     >
       {props.children}
     </div>

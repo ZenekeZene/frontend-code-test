@@ -5,6 +5,22 @@ const Box = {
   height: 100,
 };
 
+const actions = (self) => ({
+  move(left, top) {
+    self.left = left;
+    self.top = top;
+  },
+  select() {
+    self.isSelected = true;
+  },
+  unselect() {
+    self.isSelected = false;
+  },
+  changeColor(color) {
+    self.color = color;
+  },
+});
+
 const BoxModel = types
   .model("Box", {
     id: types.identifier,
@@ -16,6 +32,6 @@ const BoxModel = types
     isSelected: false,
   })
   .views(self => ({}))
-  .actions(self => ({}));
+  .actions(actions);
 
 export default BoxModel;
