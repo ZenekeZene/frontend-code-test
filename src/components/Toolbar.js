@@ -47,7 +47,7 @@ function Toolbar({ store }) {
         type="color"
         onChange={handleChangeColor}
       />
-      <span>No boxes selected</span>
+      <span>{ isAnyBoxSelected ? store.getNumberOfSelectedBoxes() : 'No boxes selected' }</span>
     </div>
   );
 }

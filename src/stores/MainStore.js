@@ -5,9 +5,12 @@ const views = (self) => ({
   get selectedBox() {
     return self.boxes.find(box => box.isSelected);
   },
+  getNumberOfSelectedBoxes() {
+    return self.boxes.filter(box => box.isSelected).length;
+  },
   isAnyBoxSelected() {
-    return self.boxes.some(box => box.isSelected);
-  }
+    return self.getNumberOfSelectedBoxes() > 0;
+  },
 });
 
 const actions = (self) => ({
