@@ -10,8 +10,10 @@ function BoxDraggable(props) {
         backgroundColor: props.color,
         width: props.width,
         height: props.height,
-        transform: `translate(${props.left}px, ${props.top}px)`
+        transform: `translate(${props.left}px, ${props.top}px)`,
+        border: props.box.isSelected ? "2px solid #333" : "none"
       }}
+      onClick={props.onClick}
     >
       {props.children}
     </div>

@@ -1,11 +1,16 @@
 import React from "react";
 
 import { observer } from "mobx-react";
-import Box from "../components/Box";
+import Box from "./Box/Box";
+
+export const canvasSize = {
+  width: 800,
+  height: 600
+};
 
 function Canvas({ store }) {
   return (
-    <div className="canva">
+    <div className="canva" style={{ width: canvasSize.width, height: canvasSize.height }}>
       {store.boxes.map((box, index) => (
         <Box
           id={box.id}
@@ -16,6 +21,7 @@ function Canvas({ store }) {
           width={box.width}
           height={box.height}
           box={box}
+          onClick={() => store.selectBox(box)}
         />
       ))}
     </div>

@@ -11,10 +11,27 @@ const MainStore = types
     return {
       addBox(box) {
         self.boxes.push(box);
+      },
+      removeBox() {
+        const index = self.boxes.findIndex(box => box.isSelected);
+        self.boxes.splice(index, 1);
+      },
+      selectBox(box) {
+        self.boxes.forEach(b => {
+          if (b.id === box.id) {
+            b.isSelected = !b.isSelected;
+          } else {
+            b.isSelected = false;
+          }
+        });
       }
     };
   })
-  .views(self => ({}));
+  .views(self => ({
+    isAnyBoxSelected() {
+      return self.boxes.some(box => box.isSelected);
+    }
+  }));
 
 const store = MainStore.create();
 
