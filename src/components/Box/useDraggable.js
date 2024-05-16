@@ -2,11 +2,11 @@ import React from 'react';
 import interact from "interactjs";
 
 const draggableConfig = {
-  inertia: true,
+  inertia: false,
   modifiers: [
     interact.modifiers.restrictRect({
       restriction: 'parent',
-      endOnly: true
+      endOnly: false
     })
   ]
 };
