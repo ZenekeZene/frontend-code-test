@@ -6,6 +6,7 @@ const useSelectionToolCoordinates = ({ handleMouseUp }) => {
 	const [isSelecting, setIsSelecting] = React.useState(false);
 	const [startCoordinates, setStartCoordinates] = React.useState(coordinatesByDefault);
 	const [endCoordinates, setEndCoordinates] = React.useState(coordinatesByDefault);
+
 	const coordinates = { start: startCoordinates, end: endCoordinates };
 
 	const onMouseDown = (event) => {
@@ -14,6 +15,7 @@ const useSelectionToolCoordinates = ({ handleMouseUp }) => {
 		setIsSelecting(true);
 		const { clientX, clientY } = event;
 		setStartCoordinates({ x: clientX, y: clientY });
+		setEndCoordinates({ x: clientX, y: clientY });
 	};
 
 	const onMouseMove = (event) => {
