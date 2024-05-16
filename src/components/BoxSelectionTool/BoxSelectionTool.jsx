@@ -2,8 +2,11 @@ import React from 'react';
 import './BoxSelectionTool.css';
 
 const BoxSelectionTool = React.forwardRef(({ startCoordinates, endCoordinates }, ref) => {
+	if (!startCoordinates || !endCoordinates) return null;
+	if (startCoordinates.x === endCoordinates.x && startCoordinates.y === endCoordinates.y) return null;
+
 	const directionX = startCoordinates.x < endCoordinates.x ? 1 : -1;
-	const directionY = startCoordinates.y < endCoordinates.y ? 1 : -1;
+	const directionY = startCoordinates.y <  endCoordinates.y ? 1 : -1;
 
 	const style = {
 		width: Math.abs(endCoordinates.x - startCoordinates.x),
@@ -17,6 +20,7 @@ const BoxSelectionTool = React.forwardRef(({ startCoordinates, endCoordinates },
 			ref={ref}
 			style={style}
 			className="box-selection-tool"
+			aria-label="box selection tool"
 		>
 		</div>
 	);
