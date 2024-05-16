@@ -1,6 +1,6 @@
 import React from "react";
 import { observer } from "mobx-react";
-import BoxDraggable from "./BoxDraggable";
+import BoxDraggable from "../BoxDraggable/BoxDraggable";
 import "./Box.css";
 
 const Box = React.forwardRef((props, ref) => {
