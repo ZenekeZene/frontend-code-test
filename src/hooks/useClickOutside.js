@@ -1,6 +1,6 @@
 import React from 'react';
 
-const useClickOutside = ({ onBlur }) => {
+const useClickOutside = ({ onBlur = () => {} }) => {
 	React.useEffect(() => {
 		const handleClickOutside = (event) => {
 			if (event.target !== event.currentTarget) return;
