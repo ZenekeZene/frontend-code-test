@@ -1,13 +1,10 @@
 import React from 'react';
 
-const useClickOutside = ({ onClickOutside }) => {
-	const ref = React.useRef(null);
-
+const useClickOutside = ({ onBlur }) => {
 	React.useEffect(() => {
 		const handleClickOutside = (event) => {
-			if (ref.current && !ref.current.contains(event.target)) {
-				onClickOutside();
-			}
+			if (event.target !== event.currentTarget) return;
+			onBlur();
 		};
 
 		document.addEventListener('click', handleClickOutside);
@@ -15,9 +12,7 @@ const useClickOutside = ({ onClickOutside }) => {
 		return () => {
 			document.removeEventListener('click', handleClickOutside);
 		};
-	}, [onClickOutside]);
-
-	return ref;
+	}, [onBlur]);
 }
 
 export { useClickOutside };
