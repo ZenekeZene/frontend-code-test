@@ -11,7 +11,7 @@ const draggableConfig = {
   ]
 };
 
-const useDraggable = ({ boxRef, initialCoordinates, onDragEnd }) => {
+const useDraggable = ({ ref, initialCoordinates, onDragEnd }) => {
 	const dragMoveListener = (event) => {
     const target = event.target;
     const x = (parseFloat(target.getAttribute("data-x")) || 0) + event.dx;
@@ -30,30 +30,29 @@ const useDraggable = ({ boxRef, initialCoordinates, onDragEnd }) => {
 		onDragEnd({ x, y });
 	}, [onDragEnd]);
 
+
   React.useEffect(() => {
     let localRef = null;
-    if (boxRef.current) {
-      localRef = boxRef.current;
+    if (!ref?.current) return;
+    localRef = ref.current;
 
-			boxRef.current.setAttribute("data-x", initialCoordinates.x);
-			boxRef.current.setAttribute("data-y", initialCoordinates.y);
+    ref.current.setAttribute("data-x", initialCoordinates.x);
+    ref.current.setAttribute("data-y", initialCoordinates.y);
 
-      interact(boxRef.current).draggable({
-        ...draggableConfig,
-        listeners: {
-          move: dragMoveListener,
-					end: dragEndListener,
-        }
-      });
-    }
+    interact(localRef)
+    .draggable({
+      ...draggableConfig,
+      listeners: {
+        move: dragMoveListener,
+        end: dragEndListener,
+      }
+    });
 
     return () => {
       if (!localRef) return;
       interact(localRef).unset();
     };
-  }, [boxRef, initialCoordinates, dragEndListener]);
-
-	return { boxRef };
+  }, [ref, initialCoordinates, dragEndListener]);
 }
 
 export { useDraggable };

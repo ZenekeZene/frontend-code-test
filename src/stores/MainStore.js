@@ -11,6 +11,9 @@ const views = (self) => ({
   isAnyBoxSelected() {
     return self.getNumberOfSelectedBoxes() > 0;
   },
+  filterBoxesByIDs(ids) {
+    return self.boxes.filter(box => ids.includes(box.id));
+  }
 });
 
 const actions = (self) => ({
@@ -30,6 +33,15 @@ const actions = (self) => ({
       }
     });
   },
+  selectBoxes: (boxes) => {
+    self.boxes.forEach(box => {
+      if (boxes.includes(box)) {
+        box.select();
+      } else {
+        box.unselect();
+      }
+    });
+  },
   unselectAllBoxes: () => {
     self.boxes.forEach(box => box.unselect());
   },
@@ -37,7 +49,7 @@ const actions = (self) => ({
 
 const MainStore = types
   .model("MainStore", {
-    boxes: types.array(BoxModel)
+    boxes: types.array(BoxModel),
   })
   .actions(actions)
   .views(views);

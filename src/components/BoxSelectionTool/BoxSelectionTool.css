@@ -1,0 +1,6 @@
+.box-selection-tool {
+	position: absolute;
+	z-index: 1;
+	background-color: transparent;
+	border: 2px dashed rgba(0, 0, 0, 0.5);
+}

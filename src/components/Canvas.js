@@ -1,6 +1,7 @@
 import React from "react";
-
 import { observer } from "mobx-react";
+import { useClickOutside } from "../hooks/useClickOutside";
+import { SelectionCanvas } from "./SelectionCanvas/SelectionCanvas";
 import Box from "./Box/Box";
 
 export const canvasSize = {
@@ -8,14 +9,23 @@ export const canvasSize = {
   height: 600
 };
 
-function Canvas({ store }) {
+const Canvas = ({ store }) => {
+  const boxesRef = React.useRef(new Map());
+  useClickOutside({ onBlur: () => store.unselectAllBoxes() });
+  const ref = box => node => boxesRef.current.set(box.id, node);
+
   const handleOnClick = (event, box) => {
     event.stopPropagation();
     store.selectBox(box);
   };
 
-  const onDragEnd = (box, { x: left, y: top }) => {
-    box.move(left, top);
+  const onDragEnd = (box, { x, y }) => {
+    box.move(x, y);
+  };
+
+  const selectBoxesByIDs = (selectedBoxesIds) => {
+    const selectedBoxes = store.filterBoxesByIDs(selectedBoxesIds);
+    store.selectBoxes(selectedBoxes);
   };
 
   return (
@@ -23,24 +33,22 @@ function Canvas({ store }) {
       className="canva"
       style={{ width: canvasSize.width, height: canvasSize.height }}
     >
-      {store.boxes.map((box, index) => (
-        <Box
-          id={box.id}
-          key={index}
-          color={box.color}
-          left={box.left}
-          top={box.top}
-          width={box.width}
-          height={box.height}
-          box={box}
-          isSelected={box.isSelected}
-          onClick={(event) => handleOnClick(event, box)}
-          onClickOutside={() => store.unselectAllBoxes()}
-          onDragEnd={(coordinates) => onDragEnd(box, coordinates)}
-        />
-      ))}
+      <SelectionCanvas
+        boxesRef={boxesRef}
+        onMouseUp={selectBoxesByIDs}
+      >
+        {store.boxes.map((box, index) => (
+          <Box
+            ref={ref(box)}
+            key={index}
+            box={box}
+            onClick={(event) => handleOnClick(event, box)}
+            onDragEnd={(coordinates) => onDragEnd(box, coordinates)}
+          />
+        ))}
+      </SelectionCanvas>
     </div>
   );
-}
+};
 
 export default observer(Canvas);
