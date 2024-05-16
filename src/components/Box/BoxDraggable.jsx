@@ -9,7 +9,7 @@ const BoxDraggable = React.forwardRef((props, ref) => {
 
   const { id, color, width, height, left, top, isSelected } = props.box;
   const initialCoordinates = { x: left, y: top };
-  const { onClick, onDragEnd } = props;
+  const { role, onClick, onDragEnd } = props;
 
   useDraggable({ ref: localRef, initialCoordinates, onDragEnd });
 
@@ -25,6 +25,7 @@ const BoxDraggable = React.forwardRef((props, ref) => {
     <div
       ref={localRef}
       id={id}
+      role={role}
       className="box"
       style={style}
       onClick={onClick}
