@@ -3,7 +3,7 @@ import { BoxSelectionTool } from "../BoxSelectionTool/BoxSelectionTool";
 import { useSelectionToolCoordinates } from "../BoxSelectionTool/useSelectionToolCoordinates";
 import "./SelectionCanvas.css";
 
-const isOverlapping = ({ start, end }, box) => {
+const isBoxOverlappingWithOtherBox = ({ start, end }, box) => {
   const minX = Math.min(start.x, end.x);
   const maxX = Math.max(start.x, end.x);
   const minY = Math.min(start.y, end.y);
@@ -22,7 +22,7 @@ const getSelectedBoxesId = (boxesRef, coordinates) => {
   const selectedBoxesRef = boxes.filter((box) => {
     const { left, top } = box.getBoundingClientRect();
     const boxCoordinates = { x: left, y: top };
-    return isOverlapping(coordinates, boxCoordinates);
+    return isBoxOverlappingWithOtherBox(coordinates, boxCoordinates);
   });
   return selectedBoxesRef.map((box) => box.id);
 };
