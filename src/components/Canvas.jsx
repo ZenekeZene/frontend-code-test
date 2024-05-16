@@ -1,5 +1,6 @@
 import React from "react";
 import { observer } from "mobx-react";
+import { isAlive } from "mobx-state-tree";
 import { useClickOutside } from "../hooks/useClickOutside";
 import { SelectionCanvas } from "./SelectionCanvas/SelectionCanvas";
 import Box from "./Box/Box";
@@ -12,7 +13,10 @@ export const canvasSize = {
 const Canvas = ({ store }) => {
   const boxesRef = React.useRef(new Map());
   useClickOutside({ onBlur: () => store.unselectAllBoxes() });
-  const ref = box => node => boxesRef.current.set(box.id, node);
+  const ref = box => node => {
+    if (!isAlive(box)) return;
+    boxesRef.current.set(box.id, node);
+  }
 
   const handleOnClick = (event, box) => {
     event.stopPropagation();
