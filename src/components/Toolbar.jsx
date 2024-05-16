@@ -1,5 +1,5 @@
 import React from "react";
-import uuid from "uuid/v4";
+import { v4 as uuid } from "uuid";
 import { observer } from "mobx-react";
 import getRandomColor from "../utils/getRandomColor";
 import { getRandomCoordinates } from "../utils/getRandomCoordinates";
