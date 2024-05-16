@@ -25,7 +25,6 @@ const useSelectionToolCoordinates = ({ handleMouseUp }) => {
 	const onMouseUp = () => {
 		if (!isSelecting) return;
 		setIsSelecting(false);
-		console.log(coordinates);
 		handleMouseUp(coordinates);
 	};
 
