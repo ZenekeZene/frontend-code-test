@@ -1,6 +1,6 @@
 import React from "react";
 import { observer } from "mobx-react";
-import { useDraggable } from "./useDraggable";
+import { useDraggable } from "../../hooks/useDraggable/useDraggable";
 import { DragService } from '../../services/drag.service';
 
 const BoxDraggable = React.forwardRef((props, ref) => {
