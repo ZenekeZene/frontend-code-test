@@ -1,21 +1,10 @@
 import React from 'react';
-import interact from "interactjs";
 
-const draggableConfig = {
-  inertia: false,
-  modifiers: [
-    interact.modifiers.restrictRect({
-      restriction: 'parent',
-      endOnly: false
-    })
-  ]
-};
-
-const useDraggable = ({ ref, initialCoordinates, onDragEnd }) => {
-	const dragMoveListener = (event) => {
+const useDraggable = ({ ref, dragService, initialCoordinates, onDragEnd = () => null }) => {
+	const dragMoveListener = (event, delta) => {
     const target = event.target;
-    const x = (parseFloat(target.getAttribute("data-x")) || 0) + event.dx;
-    const y = (parseFloat(target.getAttribute("data-y")) || 0) + event.dy;
+    const x = (parseFloat(target.getAttribute("data-x")) || 0) + delta.x;
+    const y = (parseFloat(target.getAttribute("data-y")) || 0) + delta.y;
 
     target.style.transform = `translate(${x}px, ${y}px)`;
 
@@ -39,20 +28,18 @@ const useDraggable = ({ ref, initialCoordinates, onDragEnd }) => {
     ref.current.setAttribute("data-x", initialCoordinates.x);
     ref.current.setAttribute("data-y", initialCoordinates.y);
 
-    interact(localRef)
-    .draggable({
-      ...draggableConfig,
-      listeners: {
-        move: dragMoveListener,
-        end: dragEndListener,
-      }
-    });
+    const dragConfig = {
+      targetElement: localRef,
+      move: dragMoveListener,
+      end: dragEndListener
+    };
+    const { unset } = dragService(dragConfig).init();
 
     return () => {
       if (!localRef) return;
-      interact(localRef).unset();
+      unset();
     };
-  }, [ref, initialCoordinates, dragEndListener]);
+  }, [ref, dragService, initialCoordinates, dragEndListener]);
 }
 
 export { useDraggable };

@@ -9,7 +9,7 @@ const Box = React.forwardRef((props, ref) => {
   React.useImperativeHandle(ref, () => localRef.current);
 
   return (
-    <BoxDraggable {...props} ref={localRef} role="group">
+    <BoxDraggable {...props} ref={localRef}>
       <div>Box</div>
     </BoxDraggable>
   );

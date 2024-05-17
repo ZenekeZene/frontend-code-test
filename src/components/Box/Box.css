@@ -1,3 +1,7 @@
 .box {
 	user-select: none;
 }
+
+.box.--is-selected {
+	border: 2px solid #333;
+}
