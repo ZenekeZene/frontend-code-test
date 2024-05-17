@@ -1,7 +1,7 @@
 import React from "react";
 import { observer } from "mobx-react";
 import { isAlive } from "mobx-state-tree";
-import { useClickOutside } from "../hooks/useClickOutside";
+import { useClickOutside } from "../hooks/useClickOutside/useClickOutside";
 import { SelectionCanvas } from "./SelectionCanvas/SelectionCanvas";
 import Box from "./Box/Box";
 
