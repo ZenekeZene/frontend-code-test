@@ -1,6 +1,6 @@
 import React from 'react';
 import { BoxSelectionTool } from "../BoxSelectionTool/BoxSelectionTool";
-import { useSelectionToolCoordinates } from "../BoxSelectionTool/useSelectionToolCoordinates";
+import { useSelectionToolCoordinates } from "../../hooks/useSelectionToolCoordinates/useSelectionToolCoordinates";
 import "./SelectionCanvas.css";
 
 const isBoxOverlappingWithOtherBox = ({ start, end }, box) => {
