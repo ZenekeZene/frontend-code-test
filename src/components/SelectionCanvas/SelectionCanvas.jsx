@@ -43,6 +43,7 @@ const SelectionCanvas = ({ boxesRef, onMouseUp, children }) => {
 
 	return (
 		<div
+			role="group"
 			className="selection-canvas"
 			{...events}
 		>
