@@ -3,11 +3,11 @@ const DragService = ({ targetElement, move, end }) => ({
 		const handleMove = (event) => {
 			const offsetX = event.clientX - targetElement.getBoundingClientRect().left;
       const offsetY = event.clientY - targetElement.getBoundingClientRect().top;
-			const delta = {
-				x: offsetX,
-				y: offsetY
+			const fakeEvent = {
+				dx: offsetX,
+				dy: offsetY,
 			};
-			move(event, delta);
+			move(fakeEvent);
 		};
 		targetElement.addEventListener('mousemove', handleMove);
 		targetElement.addEventListener('mouseup', end);

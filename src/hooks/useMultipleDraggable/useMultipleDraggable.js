@@ -1,11 +1,12 @@
 import React from 'react';
 
-const useMultipleDraggable = ({ boxes, dragService }) => {
+const useMultipleDraggable = ({ boxes, dragService, onDragEnd = () => {} }) => {
 	const unsets = React.useRef([]);
 
 	const dragMoveListener = React.useCallback((event) => (box) => {
 		const delta = { x: event.dx, y: event.dy };
 		const { node } = box;
+
     const x = (parseFloat(node.getAttribute("data-x")) || 0) + delta.x;
     const y = (parseFloat(node.getAttribute("data-y")) || 0) + delta.y;
 
@@ -19,8 +20,8 @@ const useMultipleDraggable = ({ boxes, dragService }) => {
 		const { node } = box;
     const x = parseFloat(node.getAttribute("data-x"));
     const y = parseFloat(node.getAttribute("data-y"));
-    box.move(x, y);
-  }, []);
+		onDragEnd(box, { x, y });
+  }, [onDragEnd]);
 
   React.useEffect(() => {
 		if (!boxes) return;
@@ -41,7 +42,7 @@ const useMultipleDraggable = ({ boxes, dragService }) => {
 			};
 
 			const dragConfig = {
-				targetElement: node,
+				targetElement: box.node,
 				...listeners,
 			};
 
@@ -54,8 +55,5 @@ const useMultipleDraggable = ({ boxes, dragService }) => {
 		};
   }, [unsets, boxes, dragService, dragEndListener, dragMoveListener]);
 };
-
-// TODO: useMultipleDraggable supports multiple and single draggable elements.
-// So We can use it in Canvas component and remove useDraggable from BoxDraggable component.
 
 export { useMultipleDraggable };

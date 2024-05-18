@@ -15,7 +15,12 @@ export const canvasSize = {
 const Canvas = ({ store }) => {
   const selectedBoxes = store.getSelectedBoxes();
   useClickOutside({ onBlur: () => store.unselectAllBoxes() });
-  useMultipleDraggable({ boxes: selectedBoxes, dragService: DragService })
+
+  const onDragEnd = (box, { x, y }) => {
+    box.move(x, y);
+  };
+
+  useMultipleDraggable({ boxes: selectedBoxes, dragService: DragService, onDragEnd })
 
   const ref = box => node => {
     if (!isAlive(box)) return;
