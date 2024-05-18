@@ -5,15 +5,21 @@ const views = (self) => ({
   get selectedBox() {
     return self.boxes.find(box => box.isSelected);
   },
+  getSelectedBoxes() {
+    return self.boxes.filter(box => box.isSelected);
+  },
   getNumberOfSelectedBoxes() {
-    return self.boxes.filter(box => box.isSelected).length;
+    return self.getSelectedBoxes().length;
   },
   isAnyBoxSelected() {
     return self.getNumberOfSelectedBoxes() > 0;
   },
+  areMultipleBoxesSelected() {
+    return self.getNumberOfSelectedBoxes() > 1;
+  },
   filterBoxesByIDs(ids) {
     return self.boxes.filter(box => ids.includes(box.id));
-  }
+  },
 });
 
 const actions = (self) => ({

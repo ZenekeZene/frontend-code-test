@@ -6,22 +6,26 @@ const createNode = ({ id, top, left }) => {
 	const node = document.createElement("div");
 	node.id = id;
 	node.getBoundingClientRect = () => ({
-		left: top,
-		top: left
+		top,
+		left,
 	});
 	return node;
 };
 
 const createNodes = (configNodes) => {
-	const nodesMap = new Map();
+	const nodes = [];
 	configNodes.forEach(configNode => {
-		nodesMap.set(configNode.id, createNode(configNode));
+		nodes.push({ node: createNode(configNode) });
 	});
-	return { current: nodesMap };
+	return nodes;
+};
+
+const expectedSelectedNodes = (boxes, ids) => {
+	return boxes.filter(box => ids.includes(box.node.id));
 };
 
 const simulateSelection = async (debugNode, { x, y }) => {
-	fireEvent.mouseDown(debugNode);
+	fireEvent.mouseDown(debugNode, { clientX: 0, clientY: 0 });
 	x && fireEvent.mouseMove(debugNode, { clientX: x, clientY: y });
 	fireEvent.mouseUp(debugNode);
 };
@@ -31,77 +35,82 @@ describe(`SelectionCanvas component:`, () => {
 		only on a single node, the prop "onMouseUp" is called
 		with the selected node`, () => {
 		const onMouseUp = vi.fn();
-		const boxesRef = createNodes([
-			{ id: 'foo', top: 10, left: 20 },
+		const boxes = createNodes([
+			{ id: 'foo', top: 0, left: 0 },
 			{ id: 'bar', top: 100, left: 90 },
 		]);
+		const expected = expectedSelectedNodes(boxes, ["foo"]);
 
 		render(<SelectionCanvas
-			boxesRef={boxesRef}
+			boxes={boxes}
 			onMouseUp={onMouseUp}
 		/>);
 
 		const selectionCanvas = screen.getByRole("group");
-		simulateSelection(selectionCanvas, { x: 10, y: 20 });
+		simulateSelection(selectionCanvas, { x: 5, y: 6 });
 
-		expect(onMouseUp).toHaveBeenCalledWith(["foo"]);
+		expect(onMouseUp).toHaveBeenCalledWith(expected);
 	});
 
 	test(`given three nodes, if the user makes a selection region
 		only on the first two, the prop "onMouseUp is called
 		with these two selected nodes"`, () => {
 		const onMouseUp = vi.fn();
-		const boxesRef = createNodes([
-			{ id: 'foo', top: 10, left: 20 },
+		const boxes = createNodes([
+			{ id: 'foo', top: 0, left: 0 },
 			{ id: 'bar', top: 100, left: 90 },
-			{ id: 'baz', top: 200, left: 190 },
+			{ id: 'baz', top: 1000, left: 1000 },
 		]);
+		const expected = expectedSelectedNodes(boxes, ["foo", "bar"]);
 
 		render(<SelectionCanvas
-			boxesRef={boxesRef}
+			boxes={boxes}
 			onMouseUp={onMouseUp}
 		/>);
 
 		const selectionCanvas = screen.getByRole("group");
-		simulateSelection(selectionCanvas, { x: 200, y: 90 });
+		simulateSelection(selectionCanvas, { x: 91, y: 101 });
 
-		expect(onMouseUp).toHaveBeenCalledWith(["foo", "bar"]);
+		expect(onMouseUp).toHaveBeenCalledWith(expected);
 	});
 
 	test(`given two nodes, if the user makes two selection region,
 		the first time on the two, and then only on the first one,
 		the prop "onMouseUp" is called with correct payload`, () => {
 		const onMouseUp = vi.fn();
-		const boxesRef = createNodes([
-			{ id: 'foo', top: 10, left: 20 },
+		const boxes = createNodes([
+			{ id: 'foo', top: 0, left: 20 },
 			{ id: 'bar', top: 100, left: 90 },
 		]);
 
 		render(<SelectionCanvas
-			boxesRef={boxesRef}
+			boxes={boxes}
 			onMouseUp={onMouseUp}
 		/>);
 
 		const selectionCanvas = screen.getByRole("group");
-		simulateSelection(selectionCanvas, { x: 200, y: 90 });
-		simulateSelection(selectionCanvas, { x: 10, y: 20 });
+		const expected = expectedSelectedNodes(boxes, ["foo", "bar"]);
+		simulateSelection(selectionCanvas, { x: 91, y: 101 });
+
+		const expectedTwo = expectedSelectedNodes(boxes, ["foo"]);
+		simulateSelection(selectionCanvas, { x: 21, y: 15 });
 
 		const calls = onMouseUp.mock.calls;
-		expect(calls[0]).toEqual([["foo", "bar"]]);
-		expect(calls[1]).toEqual([["foo"]]);
+		expect(calls[0][0]).toEqual(expected);
+		expect(calls[1][0]).toEqual(expectedTwo);
 	});
 
 	test(`given two nodes, it the user makes a selection region,
 		but without passing over any node,
 		the prop "onMouseUp" is called with empty payload `, () => {
 		const onMouseUp = vi.fn();
-		const boxesRef = createNodes([
+		const boxes = createNodes([
 			{ id: 'foo', top: 400, left: 200 },
 			{ id: 'bar', top: 500, left: 100 },
 		]);
 
 		render(<SelectionCanvas
-			boxesRef={boxesRef}
+			boxes={boxes}
 			onMouseUp={onMouseUp}
 		/>);
 

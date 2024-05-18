@@ -17,22 +17,21 @@ const isBoxOverlappingWithOtherBox = ({ start, end }, box) => {
   );
 };
 
-const getSelectedBoxesId = (boxesRef, coordinates) => {
-  const boxes = Array.from(boxesRef.current.values());
-  const selectedBoxesRef = boxes.filter((box) => {
-    const { left, top } = box.getBoundingClientRect();
+const calculateSelectedBoxes = (boxes, coordinates) => {
+  const selectedBoxes = boxes.filter((box) => {
+    const { left, top } = box.node.getBoundingClientRect();
     const boxCoordinates = { x: left, y: top };
     return isBoxOverlappingWithOtherBox(coordinates, boxCoordinates);
   });
-  return selectedBoxesRef.map((box) => box.id);
+  return selectedBoxes;
 };
 
-const SelectionCanvas = ({ boxesRef, onMouseUp, children }) => {
+const SelectionCanvas = ({ boxes, onMouseUp, children }) => {
 	const boxSelectionToolRef = React.useRef(null);
 
 	const handleMouseUp = (coordinates) => {
-    const selectedBoxesIds = getSelectedBoxesId(boxesRef, coordinates);
-		onMouseUp(selectedBoxesIds);
+    const selectedBoxes = calculateSelectedBoxes(boxes, coordinates);
+		onMouseUp(selectedBoxes);
   };
 
   const {

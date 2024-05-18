@@ -1,7 +1,9 @@
 import React from "react";
 import { observer } from "mobx-react";
 import { isAlive } from "mobx-state-tree";
+import { useMultipleDraggable } from "../hooks/useMultipleDraggable/useMultipleDraggable";
 import { useClickOutside } from "../hooks/useClickOutside/useClickOutside";
+import { DragService } from '../services/drag.service';
 import { SelectionCanvas } from "./SelectionCanvas/SelectionCanvas";
 import Box from "./Box/Box";
 
@@ -11,25 +13,18 @@ export const canvasSize = {
 };
 
 const Canvas = ({ store }) => {
-  const boxesRef = React.useRef(new Map());
+  const selectedBoxes = store.getSelectedBoxes();
   useClickOutside({ onBlur: () => store.unselectAllBoxes() });
+  useMultipleDraggable({ boxes: selectedBoxes, dragService: DragService })
+
   const ref = box => node => {
     if (!isAlive(box)) return;
-    boxesRef.current.set(box.id, node);
-  }
+    box.setNode(node);
+  };
 
-  const handleOnClick = (event, box) => {
-    event.stopPropagation();
+  const handleManualSelection = (box) => {
+    if (store.areMultipleBoxesSelected()) return;
     store.selectBox(box);
-  };
-
-  const onDragEnd = (box, { x, y }) => {
-    box.move(x, y);
-  };
-
-  const selectBoxesByIDs = (selectedBoxesIds) => {
-    const selectedBoxes = store.filterBoxesByIDs(selectedBoxesIds);
-    store.selectBoxes(selectedBoxes);
   };
 
   return (
@@ -38,16 +33,15 @@ const Canvas = ({ store }) => {
       style={{ width: canvasSize.width, height: canvasSize.height }}
     >
       <SelectionCanvas
-        boxesRef={boxesRef}
-        onMouseUp={selectBoxesByIDs}
+        boxes={store.boxes}
+        onMouseUp={store.selectBoxes}
       >
         {store.boxes.map((box, index) => (
           <Box
             ref={ref(box)}
             key={index}
             box={box}
-            onClick={(event) => handleOnClick(event, box)}
-            onDragEnd={(coordinates) => onDragEnd(box, coordinates)}
+            onMouseDown={handleManualSelection}
           />
         ))}
       </SelectionCanvas>

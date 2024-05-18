@@ -19,6 +19,9 @@ const actions = (self) => ({
   changeColor(color) {
     self.color = color;
   },
+  setNode(node) {
+    self.node = node;
+  },
 });
 
 const BoxModel = types
@@ -31,6 +34,9 @@ const BoxModel = types
     top: 100,
     isSelected: false,
   })
+  .volatile(self => ({
+    node: null,
+  }))
   .views(self => ({}))
   .actions(actions);
 
