@@ -8,8 +8,12 @@ const anotherSubject = (subject === potentialEmployee ? potentialEmployer : pote
 const boxSize = {
 	width: 136,
 	height: 66,
-	middleWidth: boxSize.width / 2,
-	middleHeight: boxSize.height / 2,
+	get middleWidth() {
+		return this.width / 2;
+	},
+	get middleHeight() {
+		return this.height / 2;
+	}
 };
 
 const screen = {
@@ -40,7 +44,7 @@ const createInitialBoxes = ({ store }) => {
 	};
 
   addBoxToStore("1", screen.x - boxSize.width - boxSize.middleWidth - gap, subject);
-  addBoxToStore("2", screen.x - boxSize.boxSize, 'meets');
+  addBoxToStore("2", screen.x - boxSize.middleWidth, 'meets');
   addBoxToStore("3", screen.x + boxSize.width - boxSize.middleWidth + gap, anotherSubject);
 };
 
