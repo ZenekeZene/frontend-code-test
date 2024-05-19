@@ -5,7 +5,8 @@
 	max-width: 8rem;
 	height: auto;
 	user-select: none;
-	box-shadow: 0 0 15px 3px rgba(0, 0, 0, 0.15)
+	box-shadow: 0 0 15px 3px rgba(0, 0, 0, 0.15);
+	border-radius: 0.25rem;
 }
 
 .box::after {
