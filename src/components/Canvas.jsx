@@ -13,14 +13,19 @@ export const canvasSize = {
 };
 
 const Canvas = ({ store }) => {
+  const [singleBoxToDrag, setSingleBoxToDrag] = React.useState(null);
   const selectedBoxes = store.getSelectedBoxes();
+  const areMultipleBoxesSelected = store.areMultipleBoxesSelected();
+
   useClickOutside({ onBlur: () => store.unselectAllBoxes() });
 
   const onDragEnd = (box, { x, y }) => {
     box.move(x, y);
   };
 
-  useMultipleDraggable({ boxes: selectedBoxes, dragService: DragService, onDragEnd })
+  const isSingleBoxToDrag = singleBoxToDrag && !areMultipleBoxesSelected;
+  const boxesToDrag = isSingleBoxToDrag ? [singleBoxToDrag] : selectedBoxes;
+  useMultipleDraggable({ boxes: boxesToDrag, dragService: DragService, onDragEnd })
 
   const ref = box => node => {
     if (!isAlive(box)) return;
@@ -28,7 +33,7 @@ const Canvas = ({ store }) => {
   };
 
   const handleManualSelection = (box) => {
-    if (store.areMultipleBoxesSelected()) return;
+    if (areMultipleBoxesSelected) return;
     store.selectBox(box);
   };
 
@@ -46,7 +51,9 @@ const Canvas = ({ store }) => {
             ref={ref(box)}
             key={index}
             box={box}
-            onMouseDown={handleManualSelection}
+            onMouseOver={(box) => !areMultipleBoxesSelected && setSingleBoxToDrag(box)}
+            onMouseLeave={() => !areMultipleBoxesSelected && setSingleBoxToDrag(null)}
+            onClick={handleManualSelection}
           />
         ))}
       </SelectionCanvas>

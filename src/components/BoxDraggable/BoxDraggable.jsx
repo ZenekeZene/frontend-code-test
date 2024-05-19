@@ -23,7 +23,9 @@ const BoxDraggable = React.forwardRef((props, ref) => {
       className={ `box ${isSelected ? '--is-selected': '' }` }
       aria-pressed={isSelected}
       style={style}
-      onMouseDown={() => props.onMouseDown(props.box)}
+      onMouseLeave={props.onMouseLeave}
+      onMouseOver={() => props.onMouseOver(props.box)}
+      onClick={() => props.onClick(props.box)}
     >
       {props.children}
     </div>
