@@ -11,6 +11,7 @@ const createNewBox = () => {
   return BoxModel.create({
     id: uuid(),
     color: getRandomColor(),
+    backgroundColor: getRandomColor(),
     ...coordinates,
   });
 };
@@ -28,7 +29,7 @@ const Toolbar = ({ store }) => {
     store.removeSelectedBoxes();
   };
 
-  const handleChangeColor = (event) => {
+  const handleChangeBackgroundColor = (event) => {
     if (!isAnyBoxSelected) return;
     store.changeSelectedBoxesColor(event.target.value);
   };
@@ -47,7 +48,7 @@ const Toolbar = ({ store }) => {
       <input
         disabled={!isAnyBoxSelected}
         type="color"
-        onChange={handleChangeColor}
+        onChange={handleChangeBackgroundColor}
       />
       <span>{ isAnyBoxSelected ? store.getNumberOfSelectedBoxes() : 'No boxes selected' }</span>
     </div>

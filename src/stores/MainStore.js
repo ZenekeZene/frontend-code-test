@@ -56,7 +56,7 @@ const actions = (self) => ({
     self.boxes.forEach(box => box.unselect());
   },
   changeSelectedBoxesColor: (color) => {
-    self.getSelectedBoxes().forEach(box => box.changeColor(color));
+    self.getSelectedBoxes().forEach(box => box.changeBackgroundColor(color));
   },
 });
 

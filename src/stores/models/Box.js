@@ -19,6 +19,9 @@ const actions = (self) => ({
   changeColor(color) {
     self.color = color;
   },
+  changeBackgroundColor(backgroundColor) {
+    self.backgroundColor = backgroundColor;
+  },
   setNode(node) {
     self.node = node;
   },
@@ -30,6 +33,7 @@ const BoxModel = types
     width: Box.width,
     height: Box.height,
     color: "#FFF000",
+    backgroundColor: "#000FFF",
     left: 200,
     top: 100,
     isSelected: false,
