@@ -1,4 +1,3 @@
-// icon:bxs-edit | Boxicons https://boxicons.com/ | Atisa
 import React from "react";
 
 function IconEdit(props) {
