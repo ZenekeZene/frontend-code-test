@@ -17,9 +17,6 @@ const views = (self) => ({
   areMultipleBoxesSelected() {
     return self.getNumberOfSelectedBoxes() > 1;
   },
-  filterBoxesByIDs(ids) {
-    return self.boxes.filter(box => ids.includes(box.id));
-  },
 });
 
 const actions = (self) => ({
@@ -50,6 +47,9 @@ const actions = (self) => ({
   },
   unselectAllBoxes: () => {
     self.boxes.forEach(box => box.unselect());
+  },
+  changeSelectedBoxesColor: (color) => {
+    self.getSelectedBoxes().forEach(box => box.changeColor(color));
   },
 });
 

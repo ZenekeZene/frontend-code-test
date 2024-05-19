@@ -15,7 +15,7 @@ const createNewBox = () => {
   });
 };
 
-function Toolbar({ store }) {
+const Toolbar = ({ store }) => {
   const isAnyBoxSelected = store.isAnyBoxSelected();
 
   const handleAddBox = () => {
@@ -30,7 +30,7 @@ function Toolbar({ store }) {
 
   const handleChangeColor = (event) => {
     if (!isAnyBoxSelected) return;
-    store.selectedBox.changeColor(event.target.value);
+    store.changeSelectedBoxesColor(event.target.value);
   };
 
   return (
