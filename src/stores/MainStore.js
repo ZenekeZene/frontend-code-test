@@ -27,6 +27,13 @@ const actions = (self) => ({
     const index = self.boxes.findIndex(box => box.isSelected);
     self.boxes.splice(index, 1);
   },
+  removeSelectedBoxes: () => {
+    const selectedBoxes = self.getSelectedBoxes();
+    selectedBoxes.forEach(box => {
+      const index = self.boxes.findIndex(b => b.id === box.id);
+      self.boxes.splice(index, 1);
+    });
+  },
   selectBox: (box) => {
     self.boxes.forEach(b => {
       if (b.id === box.id) {

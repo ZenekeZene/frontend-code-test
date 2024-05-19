@@ -11,9 +11,11 @@ const Box = React.forwardRef((props, ref) => {
 
   return (
     <BoxDraggable {...props} ref={localRef}>
-      <span className="box__remove" onClick={props.onRemove}>
-        <IconDelete />
-      </span>
+      { !props.areMultipleBoxesSelected && (
+        <span className="box__remove" onClick={props.onRemove}>
+          <IconDelete />
+        </span>
+      )}
       <div>Box</div>
     </BoxDraggable>
   );
