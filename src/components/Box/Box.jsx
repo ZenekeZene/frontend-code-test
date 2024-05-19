@@ -20,6 +20,10 @@ const Box = React.forwardRef((props, ref) => {
     setIsEditing(!isEditing);
   };
 
+  const handleChangeText = () => {
+    props.box.setText(textRef.current.innerText);
+  };
+
   React.useEffect(() => {
     if (isEditing) {
       textRef.current.focus();
@@ -51,8 +55,9 @@ const Box = React.forwardRef((props, ref) => {
         <div ref={textRef}
           className="box__text"
           contentEditable={isEditing}
+          onInput={handleChangeText}
           style={{ color: props.box.color }}
-        ></div>
+        >{props.box.text}</div>
       </div>
       <div className="box__paper"></div>
       <div className="box__back"

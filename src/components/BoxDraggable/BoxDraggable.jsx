@@ -6,7 +6,7 @@ const BoxDraggable = React.forwardRef((props, ref) => {
 
   React.useImperativeHandle(ref, () => localRef.current);
 
-  const { id, color, backgroundColor, width, height, left, top, isSelected } = props.box;
+  const { id, color, width, height, left, top, isSelected } = props.box;
 
   const style = {
     color,

@@ -26,6 +26,9 @@ const actions = (self) => ({
   setNode(node) {
     self.node = node;
   },
+  setText(text) {
+    self.text = text;
+  }
 });
 
 const BoxModel = types
@@ -38,6 +41,7 @@ const BoxModel = types
     left: 200,
     top: 100,
     isSelected: false,
+    text: "",
   })
   .volatile(self => ({
     node: null,
