@@ -1,10 +1,7 @@
 import { types } from "mobx-state-tree";
 import tinycolor from "tinycolor2";
-
-const Box = {
-  width: 136,
-  height: 66,
-};
+import { availableBackgroundColors } from "../../constants/colors";
+import { size } from '../../constants/box';
 
 const actions = (self) => ({
   move(left, top) {
@@ -34,14 +31,14 @@ const actions = (self) => ({
 const BoxModel = types
   .model("Box", {
     id: types.identifier,
-    width: Box.width,
-    height: Box.height,
-    color: "#FFF000",
-    backgroundColor: "#000FFF",
-    left: 200,
-    top: 100,
+    width: size.width,
+    height: size.height,
+    color: types.string,
+    backgroundColor: availableBackgroundColors[0],
+    left: types.number,
+    top: types.number,
     isSelected: false,
-    text: "",
+    text: types.string,
   })
   .volatile(self => ({
     node: null,

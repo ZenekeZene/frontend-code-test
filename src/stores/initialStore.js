@@ -1,51 +1,31 @@
-import BoxModel from "./models/Box";
+import { v4 as uuid } from "uuid";
+import BoxModel from "./models/BoxModel";
+import boxesConfigByDefault, { size } from '../constants/box';
+import screen from '../constants/screen';
 
 const potentialEmployee = "Zenekezene";
 const potentialEmployer = "Genially";
 const subject = Math.random() > 0.5 ? potentialEmployee : potentialEmployer;
 const anotherSubject = (subject === potentialEmployee ? potentialEmployer : potentialEmployee) + '!';
 
-const boxSize = {
-	width: 136,
-	height: 66,
-	get middleWidth() {
-		return this.width / 2;
-	},
-	get middleHeight() {
-		return this.height / 2;
-	}
-};
-
-const screen = {
-	x: window.innerWidth / 2,
-	y: window.innerHeight / 2,
-};
-
-const gap = 60;
-
-const boxesConfigByDefault = {
-	color: "black",
-	backgroundColor: "#FFD75E",
-	width: boxSize.width,
-	height: boxSize.height,
-};
+const gapInPixels = 60;
 
 const createInitialBoxes = ({ store }) => {
 	if (!store) return;
 
-	const addBoxToStore = (id, left, text) => {
+	const addBoxToStore = (left, text) => {
 		store.addBox(BoxModel.create({
-			id,
+			id: uuid(),
 			...boxesConfigByDefault,
 			left,
-			top: screen.y - boxSize.height / 2,
+			top: screen.y - size.height / 2,
 			text,
 		}));
 	};
 
-  addBoxToStore("1", screen.x - boxSize.width - boxSize.middleWidth - gap, subject);
-  addBoxToStore("2", screen.x - boxSize.middleWidth, 'meets');
-  addBoxToStore("3", screen.x + boxSize.width - boxSize.middleWidth + gap, anotherSubject);
+  addBoxToStore(screen.x - size.width - size.middleWidth - gapInPixels, subject);
+  addBoxToStore(screen.x - size.middleWidth, 'meets');
+  addBoxToStore(screen.x + size.width - size.middleWidth + gapInPixels, anotherSubject);
 };
 
 export { createInitialBoxes };

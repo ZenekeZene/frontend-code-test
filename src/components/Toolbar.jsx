@@ -2,15 +2,16 @@ import React from "react";
 import { v4 as uuid } from "uuid";
 import { observer } from "mobx-react";
 import { getRandomCoordinates } from "../utils/getRandomCoordinates";
-import BoxModel from "../stores/models/Box";
+import BoxModel from "../stores/models/BoxModel";
 import { canvasSize } from "./Canvas";
+import { availableBackgroundColors, defaultFontColor } from '../constants/colors';
 
 const createNewBox = () => {
   const coordinates = getRandomCoordinates(canvasSize);
   return BoxModel.create({
     id: uuid(),
-    color: 'black',
-    backgroundColor: '#FFD75E',
+    color: defaultFontColor,
+    backgroundColor: availableBackgroundColors[Math.floor(Math.random() * availableBackgroundColors.length)],
     ...coordinates,
   });
 };

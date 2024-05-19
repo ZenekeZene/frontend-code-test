@@ -1,5 +1,5 @@
 import { types } from "mobx-state-tree";
-import BoxModel from "./models/Box";
+import BoxModel from "./models/BoxModel";
 
 const views = (self) => ({
   get selectedBox() {
