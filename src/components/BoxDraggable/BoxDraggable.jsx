@@ -10,7 +10,7 @@ const BoxDraggable = React.forwardRef((props, ref) => {
 
   const style = {
     backgroundColor: color,
-    width: width,
+    minWidth: width,
     minHeight: height,
     transform: `translate(${left}px, ${top}px)`,
   };
@@ -26,6 +26,7 @@ const BoxDraggable = React.forwardRef((props, ref) => {
       onMouseLeave={props.onMouseLeave}
       onMouseOver={() => props.onMouseOver(props.box)}
       onClick={() => props.onClick(props.box)}
+      onDoubleClick={props.onDoubleClick}
     >
       {props.children}
     </div>

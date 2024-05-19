@@ -16,6 +16,11 @@ const Box = React.forwardRef((props, ref) => {
     setIsEditing(!isEditing);
   };
 
+  const handleDoubleClick = () => {
+    if (isEditing) return;
+    setIsEditing(true);
+  };
+
   React.useEffect(() => {
     if (isEditing) {
       textRef.current.focus();
@@ -23,7 +28,7 @@ const Box = React.forwardRef((props, ref) => {
   }, [isEditing]);
 
   return (
-    <BoxDraggable {...props} ref={localRef}>
+    <BoxDraggable {...props} ref={localRef} onDoubleClick={handleDoubleClick}>
       <section className="box__tools">
         { !props.areMultipleBoxesSelected && (
           <span className="box__remove" onClick={props.onRemove}>
