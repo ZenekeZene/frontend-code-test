@@ -23,11 +23,6 @@ const Toolbar = ({ store }) => {
     store.addBox(newBox);
   };
 
-  const handleRemoveBox = () => {
-    if (!isAnyBoxSelected) return;
-    store.removeBox();
-  };
-
   const handleChangeColor = (event) => {
     if (!isAnyBoxSelected) return;
     store.changeSelectedBoxesColor(event.target.value);
@@ -38,10 +33,6 @@ const Toolbar = ({ store }) => {
       <button
         onClick={handleAddBox}
       >Add Box</button>
-      <button
-        disabled={!isAnyBoxSelected}
-        onClick={handleRemoveBox}
-      >Remove Box</button>
       <input
         disabled={!isAnyBoxSelected}
         type="color"

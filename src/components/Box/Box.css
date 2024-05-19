@@ -1,7 +1,40 @@
+:root {
+	--selected-color: #333;
+	--selected-border: 2px solid var(--selected-color);
+}
+
 .box {
 	user-select: none;
 }
 
 .box.--is-selected {
-	border: 2px solid #333;
+	border: var(--selected-border);
+}
+
+.box__remove {
+	display: none;
+	position: absolute;
+	top: -0.5rem;
+	right: -0.5rem;
+	width: 1.5rem;
+	height: 1.5rem;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	z-index: 1;
+	background-color: white;
+	border-radius: 50%;
+	border: var(--selected-border);
+}
+
+.box__remove:hover {
+	background-color: var(--selected-color);
+}
+
+.box__remove:hover svg {
+	fill: white;
+}
+
+.box.--is-selected .box__remove {
+	display: flex;
 }

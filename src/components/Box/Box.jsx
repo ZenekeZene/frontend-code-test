@@ -1,5 +1,6 @@
 import React from "react";
 import { observer } from "mobx-react";
+import { IconDelete } from "../../icons/IconDelete";
 import BoxDraggable from "../BoxDraggable/BoxDraggable";
 import "./Box.css";
 
@@ -10,6 +11,9 @@ const Box = React.forwardRef((props, ref) => {
 
   return (
     <BoxDraggable {...props} ref={localRef}>
+      <span className="box__remove" onClick={props.onRemove}>
+        <IconDelete />
+      </span>
       <div>Box</div>
     </BoxDraggable>
   );

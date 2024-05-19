@@ -54,6 +54,7 @@ const Canvas = ({ store }) => {
             onMouseOver={(box) => !areMultipleBoxesSelected && setSingleBoxToDrag(box)}
             onMouseLeave={() => !areMultipleBoxesSelected && setSingleBoxToDrag(null)}
             onClick={handleManualSelection}
+            onRemove={() => store.removeBox(box)}
           />
         ))}
       </SelectionCanvas>
