@@ -1,7 +1,6 @@
 import React from "react";
 import { v4 as uuid } from "uuid";
 import { observer } from "mobx-react";
-import getRandomColor from "../utils/getRandomColor";
 import { getRandomCoordinates } from "../utils/getRandomCoordinates";
 import BoxModel from "../stores/models/Box";
 import { canvasSize } from "./Canvas";
@@ -10,8 +9,8 @@ const createNewBox = () => {
   const coordinates = getRandomCoordinates(canvasSize);
   return BoxModel.create({
     id: uuid(),
-    color: getRandomColor(),
-    backgroundColor: getRandomColor(),
+    color: 'black',
+    backgroundColor: '#FFD75E',
     ...coordinates,
   });
 };

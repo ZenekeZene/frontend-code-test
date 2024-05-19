@@ -1,3 +1,17 @@
+:root {
+	--selected-tool: black;
+	--selected-color: #e2e9f0;
+	--selected-border-width: 2px;
+	--selected-border: var(--selected-border-width) solid var(--selected-color);
+	--icon-size: 1.5rem;
+}
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
 body,
 html,
 #root {
@@ -19,17 +33,11 @@ html,
   align-items: center;
   justify-content: center;
 }
+
 .canva {
   width: 1200px;
   height: 675px;
   background-color: aliceblue;
-}
-
-.box {
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .toolbar {

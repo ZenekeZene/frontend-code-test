@@ -6,6 +6,7 @@ import { useClickOutside } from "../hooks/useClickOutside/useClickOutside";
 import { DragService } from '../services/drag.service';
 import { SelectionCanvas } from "./SelectionCanvas/SelectionCanvas";
 import Box from "./Box/Box";
+import './Canvas.css';
 
 export const canvasSize = {
   width: '100%',

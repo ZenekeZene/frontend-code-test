@@ -10,7 +10,6 @@ const BoxDraggable = React.forwardRef((props, ref) => {
 
   const style = {
     color,
-    backgroundColor,
     minWidth: width,
     minHeight: height,
     transform: `translate(${left}px, ${top}px)`,

@@ -1,8 +1,9 @@
 import { types } from "mobx-state-tree";
+import tinycolor from "tinycolor2";
 
 const Box = {
-  width: 200,
-  height: 100,
+  width: 136,
+  height: 66,
 };
 
 const actions = (self) => ({
@@ -41,7 +42,18 @@ const BoxModel = types
   .volatile(self => ({
     node: null,
   }))
-  .views(self => ({}))
+  .views(self => ({
+    get lighterBackgroundColor() {
+      const color = tinycolor(self.backgroundColor);
+      const lighterColor = color.lighten(30);
+      return lighterColor.toString();
+    },
+    get darkerBackgroundColor() {
+      const color = tinycolor(self.backgroundColor);
+      const darkerColor = color.darken(20);
+      return darkerColor.toString();
+    }
+  }))
   .actions(actions);
 
 export default BoxModel;

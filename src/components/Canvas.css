@@ -1,0 +1,95 @@
+:root {
+  --size: 100px;
+  --size-folder-back: var(--size);
+  --size-page-1: calc(var(--size) * 0.55);
+  --size-page-2: calc(var(--size) * 0.65);
+  --size-folder-front: var(--size);
+
+  --ratio-page-1: 0.95;
+  --ratio-page-2: 1.05;
+  --ratio-page-2-height: 0.5;
+  --ratio-page-2-offset: 0;
+
+  --scale-folder: 1;
+  --scale-pages: 0.7;
+
+  --opacity-page-2: 1;
+}
+
+.download,
+.folder-back,
+.page-1,
+.page-2,
+.folder-front,
+.background {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.download {
+	z-index: 11;
+  width: var(--size);
+  height: var(--size);
+  cursor: pointer;
+  filter:
+    drop-shadow(rgba(0, 0, 0, 0.09) 4px 8px 12px)
+    drop-shadow(rgba(0, 0, 0, 0.06) 2px 4px 6px)
+    drop-shadow(rgba(0, 0, 0, 0.03) 1px 2px 3px)
+  ;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.folder-back {
+  width: var(--size-folder-back);
+  height: var(--size-folder-back);
+  transform-origin: 50% 100%;
+  transform:
+    translate(-50%, -50%)
+    scaleY(var(--scale-folder))
+  ;
+}
+
+.page-1 {
+  width: calc(var(--size-page-1) * var(--ratio-page-1));
+  height: calc(var(--size-page-1) / var(--ratio-page-1));
+  border-radius: 8px;
+  background-color: #F2EEF7;
+  filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.1));
+  transform-origin: 50% 90%;
+  transform:
+    translate(-50%, -50%)
+    translateY(calc((1 - var(--scale-pages)) * -65%))
+    scale(var(--scale-pages))
+  ;
+}
+
+.page-2 {
+  width: calc(var(--size-page-2) * var(--ratio-page-2));
+  height: calc((var(--size-page-2) * var(--ratio-page-2-height)) / var(--ratio-page-2));
+  border-radius: 10px;
+  background-color: #FFFEFF;
+  opacity: var(--opacity-page-2);
+  filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.1));
+  transform:
+    translate(-50%, -50%)
+    translateY(17%)
+    translateY(calc((1 - var(--scale-pages)) * -85%))
+    translateY(calc(var(--size) * -1.2 * var(--ratio-page-2-offset)))
+    translateY(calc((1 - var(--ratio-page-2-height)) * -65%))
+    scale(var(--scale-pages))
+  ;
+}
+
+.folder-front {
+  width: var(--size-folder-front);
+  height: var(--size-folder-front);
+  transform-origin: 50% 100%;
+  filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.1));
+  transform:
+    translate(-50%, -50%)
+    scaleY(calc(var(--scale-folder) * var(--scale-folder)))
+  ;
+}
