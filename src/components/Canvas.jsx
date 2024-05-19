@@ -8,8 +8,8 @@ import { SelectionCanvas } from "./SelectionCanvas/SelectionCanvas";
 import Box from "./Box/Box";
 
 export const canvasSize = {
-  width: 800,
-  height: 600
+  width: '100%',
+  height: '100%'
 };
 
 const Canvas = ({ store }) => {
