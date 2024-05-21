@@ -48,6 +48,13 @@ const Canvas = ({ store }) => {
     box.setHovered(false);
   };
 
+  const handleMouseMove = (selectedBoxes) => {
+    store.boxes.forEach((box) => {
+			const isSelected = selectedBoxes.includes(box);
+			box.setHovered(isSelected);
+		});
+  };
+
   return (
     <div
       className="canva"
@@ -56,6 +63,7 @@ const Canvas = ({ store }) => {
       <SelectionCanvas
         boxes={store.boxes}
         onMouseUp={store.selectBoxes}
+        onMouseMove={handleMouseMove}
       >
         {store.boxes.map((box, index) => (
           <Box
