@@ -26,7 +26,7 @@ const calculateSelectedBoxes = (boxes, coordinates) => {
   return selectedBoxes;
 };
 
-const SelectionCanvas = ({ boxes, onMouseUp, children }) => {
+const SelectionCanvas = ({ boxes, onMouseUp, onMouseMove, children }) => {
 	const boxSelectionToolRef = React.useRef(null);
 
 	const handleMouseUp = (coordinates) => {
@@ -36,10 +36,7 @@ const SelectionCanvas = ({ boxes, onMouseUp, children }) => {
 
 	const handleMouseMove = (coordinates) => {
 		const selectedBoxes = calculateSelectedBoxes(boxes, coordinates);
-		boxes.forEach((box) => {
-			const isSelected = selectedBoxes.includes(box);
-			box.setHovered(isSelected);
-		});
+		onMouseMove(selectedBoxes);
 	};
 
   const {

@@ -35,6 +35,7 @@ describe(`SelectionCanvas component:`, () => {
 		only on a single node, the prop "onMouseUp" is called
 		with the selected node`, () => {
 		const onMouseUp = vi.fn();
+		const onMouseMove = vi.fn();
 		const boxes = createNodes([
 			{ id: 'foo', top: 0, left: 0 },
 			{ id: 'bar', top: 100, left: 90 },
@@ -44,6 +45,7 @@ describe(`SelectionCanvas component:`, () => {
 		render(<SelectionCanvas
 			boxes={boxes}
 			onMouseUp={onMouseUp}
+			onMouseMove={onMouseMove}
 		/>);
 
 		const selectionCanvas = screen.getByRole("group");
@@ -56,6 +58,7 @@ describe(`SelectionCanvas component:`, () => {
 		only on the first two, the prop "onMouseUp is called
 		with these two selected nodes"`, () => {
 		const onMouseUp = vi.fn();
+		const onMouseMove = vi.fn();
 		const boxes = createNodes([
 			{ id: 'foo', top: 0, left: 0 },
 			{ id: 'bar', top: 100, left: 90 },
@@ -66,6 +69,7 @@ describe(`SelectionCanvas component:`, () => {
 		render(<SelectionCanvas
 			boxes={boxes}
 			onMouseUp={onMouseUp}
+			onMouseMove={onMouseMove}
 		/>);
 
 		const selectionCanvas = screen.getByRole("group");
@@ -78,6 +82,7 @@ describe(`SelectionCanvas component:`, () => {
 		the first time on the two, and then only on the first one,
 		the prop "onMouseUp" is called with correct payload`, () => {
 		const onMouseUp = vi.fn();
+		const onMouseMove = vi.fn();
 		const boxes = createNodes([
 			{ id: 'foo', top: 0, left: 20 },
 			{ id: 'bar', top: 100, left: 90 },
@@ -86,6 +91,7 @@ describe(`SelectionCanvas component:`, () => {
 		render(<SelectionCanvas
 			boxes={boxes}
 			onMouseUp={onMouseUp}
+			onMouseMove={onMouseMove}
 		/>);
 
 		const selectionCanvas = screen.getByRole("group");
@@ -104,6 +110,7 @@ describe(`SelectionCanvas component:`, () => {
 		but without passing over any node,
 		the prop "onMouseUp" is called with empty payload `, () => {
 		const onMouseUp = vi.fn();
+		const onMouseMove = vi.fn();
 		const boxes = createNodes([
 			{ id: 'foo', top: 400, left: 200 },
 			{ id: 'bar', top: 500, left: 100 },
@@ -112,11 +119,35 @@ describe(`SelectionCanvas component:`, () => {
 		render(<SelectionCanvas
 			boxes={boxes}
 			onMouseUp={onMouseUp}
+			onMouseMove={onMouseMove}
 		/>);
 
 		const selectionCanvas = screen.getByRole("group");
 		simulateSelection(selectionCanvas, { x: 0, y: 0 });
 
 		expect(onMouseUp).toHaveBeenCalledWith([]);
+	});
+
+	test(`given two nodes, if the user makes a selection region,
+		and then moves the mouse over the nodes,
+		the prop "onMouseMove" is called with the selected nodes`, () => {
+		const onMouseUp = vi.fn();
+		const onMouseMove = vi.fn();
+		const boxes = createNodes([
+			{ id: 'foo', top: 0, left: 0 },
+			{ id: 'bar', top: 100, left: 90 },
+		]);
+		const expected = expectedSelectedNodes(boxes, ["foo"]);
+
+		render(<SelectionCanvas
+			boxes={boxes}
+			onMouseUp={onMouseUp}
+			onMouseMove={onMouseMove}
+		/>);
+
+		const selectionCanvas = screen.getByRole("group");
+		simulateSelection(selectionCanvas, { x: 5, y: 6 });
+
+		expect(onMouseMove).toHaveBeenCalledWith(expected);
 	});
 });
