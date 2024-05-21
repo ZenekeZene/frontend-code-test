@@ -39,14 +39,3 @@ html,
   height: 675px;
   background-color: aliceblue;
 }
-
-.toolbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  display: flex;
-}
-
-.toolbar span {
-  color: white;
-}
