@@ -1,0 +1,20 @@
+.counter {
+	max-width: 9rem;
+	display: flex;
+	flex-direction: row-reverse;
+	flex-flow: row-reverse;
+	flex-wrap: wrap;
+	gap: 0.30rem;
+	transform: scaleY(-1);
+}
+
+.counter .counter__item {
+	width: 1rem;
+	height: 1rem;
+	background-color: black;
+	cursor: pointer;
+}
+
+.counter__item.--is-selected {
+	border: 1px solid black;
+}
