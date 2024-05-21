@@ -1,12 +1,14 @@
 import React from "react";
 import { observer } from "mobx-react";
+import { getClassnames } from '../../utils/getClassnames';
 
-const BoxDraggable = React.forwardRef((props, ref) => {
+const BoxDraggable = React.forwardRef(({ box, children, ...rest }, ref) => {
   const localRef = React.useRef();
-
   React.useImperativeHandle(ref, () => localRef.current);
 
-  const { id, color, width, height, left, top, isSelected } = props.box;
+  const { onClick, onMouseOver, onMouseLeave, onDoubleClick } = rest;
+  const { color, width, height, left, top } = box;
+  const { id, isSelected, isHovered } = box;
 
   const style = {
     color,
@@ -15,20 +17,26 @@ const BoxDraggable = React.forwardRef((props, ref) => {
     transform: `translate(${left}px, ${top}px)`,
   };
 
+  const classNames = getClassnames([
+    'box',
+    isSelected && '--is-selected',
+    isHovered && '--is-hovered',
+  ]);
+
   return (
     <div
       ref={localRef}
       id={id}
       role="button"
-      className={ `box ${isSelected ? '--is-selected': '' }` }
+      className={classNames}
       aria-pressed={isSelected}
       style={style}
-      onMouseLeave={props.onMouseLeave}
-      onMouseOver={() => props.onMouseOver(props.box)}
-      onClick={() => props.onClick(props.box)}
-      onDoubleClick={props.onDoubleClick}
+      onMouseLeave={() => onMouseLeave(box)}
+      onMouseOver={() => onMouseOver(box)}
+      onClick={() => onClick(box)}
+      onDoubleClick={onDoubleClick}
     >
-      {props.children}
+      {children}
     </div>
   );
 });
