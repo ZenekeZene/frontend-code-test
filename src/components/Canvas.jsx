@@ -38,6 +38,16 @@ const Canvas = ({ store }) => {
     store.selectBox(box);
   };
 
+  const handleMouseOver = (box) => {
+    !areMultipleBoxesSelected && setSingleBoxToDrag(box);
+    box.setHovered(true);
+  };
+
+  const handleMouseLeave = (box) => {
+    !areMultipleBoxesSelected && setSingleBoxToDrag(null);
+    box.setHovered(false);
+  };
+
   return (
     <div
       className="canva"
@@ -52,8 +62,8 @@ const Canvas = ({ store }) => {
             ref={ref(box)}
             key={index}
             box={box}
-            onMouseOver={(box) => !areMultipleBoxesSelected && setSingleBoxToDrag(box)}
-            onMouseLeave={() => !areMultipleBoxesSelected && setSingleBoxToDrag(null)}
+            onMouseOver={handleMouseOver}
+            onMouseLeave={handleMouseLeave}
             onClick={handleManualSelection}
             onRemove={() => store.removeBox(box)}
             areMultipleBoxesSelected={areMultipleBoxesSelected}
