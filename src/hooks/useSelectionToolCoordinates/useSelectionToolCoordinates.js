@@ -2,7 +2,7 @@ import React from 'react';
 
 const coordinatesByDefault = { x: 0, y: 0 };
 
-const useSelectionToolCoordinates = ({ handleMouseUp }) => {
+const useSelectionToolCoordinates = ({ handleMouseMove, handleMouseUp }) => {
 	const [isSelecting, setIsSelecting] = React.useState(false);
 	const [startCoordinates, setStartCoordinates] = React.useState(coordinatesByDefault);
 	const [endCoordinates, setEndCoordinates] = React.useState(coordinatesByDefault);
@@ -22,6 +22,7 @@ const useSelectionToolCoordinates = ({ handleMouseUp }) => {
 		if (!isSelecting) return;
 		const { clientX, clientY } = event;
 		setEndCoordinates({ x: Math.abs(clientX), y: Math.abs(clientY) });
+		handleMouseMove(coordinates);
 	};
 
 	const onMouseUp = () => {
