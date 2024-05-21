@@ -5,6 +5,9 @@ const views = (self) => ({
   get selectedBox() {
     return self.boxes.find(box => box.isSelected);
   },
+  getNumberOfCreatedBoxes() {
+    return self.boxes.length;
+  },
   getSelectedBoxes() {
     return self.boxes.filter(box => box.isSelected);
   },
