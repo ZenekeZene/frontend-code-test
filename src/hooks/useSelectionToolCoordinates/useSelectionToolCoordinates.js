@@ -21,8 +21,9 @@ const useSelectionToolCoordinates = ({ handleMouseMove, handleMouseUp }) => {
 	const onMouseMove = (event) => {
 		if (!isSelecting) return;
 		const { clientX, clientY } = event;
-		setEndCoordinates({ x: Math.abs(clientX), y: Math.abs(clientY) });
-		handleMouseMove(coordinates);
+		const movedCoordinates = { x: Math.abs(clientX), y: Math.abs(clientY) };
+		setEndCoordinates(movedCoordinates);
+		handleMouseMove({ ...coordinates, end: movedCoordinates });
 	};
 
 	const onMouseUp = () => {

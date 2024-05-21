@@ -3,12 +3,12 @@ import { render, fireEvent, screen, waitFor } from '@testing-library/react';
 import { useSelectionToolCoordinates } from './useSelectionToolCoordinates';
 import { test } from 'vitest';
 
-const DummyComponent = ({ handleMouseUp }) => {
+const DummyComponent = (props) => {
 	const {
 		isSelecting,
 		coordinates,
 		...events
-	} = useSelectionToolCoordinates({ handleMouseUp });
+	} = useSelectionToolCoordinates(props);
 
 	return (
 		<p
@@ -25,12 +25,17 @@ const simulateSelection = async (debugNode, { x, y }) => {
 	fireEvent.mouseUp(debugNode);
 };
 
+const dummyProps = {
+	handleMouseUp: vi.fn(),
+	handleMouseMove: vi.fn()
+};
+
 describe(`useSelectionToolCoordinates hook:
 	the dummy component using the subject under test,
 	`, () => {
 		describe('has "aria-pressed" attribute ', () => {
 			test(`as false by default`, () => {
-			render(<DummyComponent handleMouseup={vi.fn()} />);
+			render(<DummyComponent {...dummyProps} />);
 
 			const debugNode = screen.getByRole('alert');
 
@@ -38,7 +43,7 @@ describe(`useSelectionToolCoordinates hook:
 		});
 
 		test(`as true when the user starts selecting`, () => {
-			render(<DummyComponent handleMouseup={vi.fn()} />);
+			render(<DummyComponent {...dummyProps} />);
 
 			const debugNode = screen.getByRole('alert');
 			fireEvent.mouseDown(debugNode);
@@ -47,7 +52,7 @@ describe(`useSelectionToolCoordinates hook:
 		});
 
 		test(`as false when the user finishes selecting`, () => {
-			render(<DummyComponent handleMouseUp={vi.fn()} />);
+			render(<DummyComponent {...dummyProps} />);
 
 			const debugNode = screen.getByRole('alert');
 			simulateSelection(debugNode, { x: 10, y: 10 });
@@ -57,7 +62,7 @@ describe(`useSelectionToolCoordinates hook:
 	});
 
 	test(`has the coordinates as the default value by default`, () => {
-		render(<DummyComponent handleMouseUp={vi.fn()} />);
+		render(<DummyComponent {...dummyProps} />);
 
 		const debugNode = screen.getByRole('alert');
 
@@ -66,7 +71,7 @@ describe(`useSelectionToolCoordinates hook:
 
 	test(`has the coordinates as the end coordinates when the user
 		finishes selecting`, () => {
-		render(<DummyComponent handleMouseUp={vi.fn()} />);
+		render(<DummyComponent {...dummyProps} />);
 
 		const debugNode = screen.getByRole('alert');
 		simulateSelection(debugNode, { x: 10, y: 10 });
@@ -77,11 +82,23 @@ describe(`useSelectionToolCoordinates hook:
 	test(`given the prop "handleMouseUp", It is called
 		with the final coordinates when the user finishes selecting`, () => {
 		const handleMouseUp = vi.fn();
-		render(<DummyComponent handleMouseUp={handleMouseUp} />);
+		render(<DummyComponent handleMouseUp={handleMouseUp} handleMouseMove={vi.fn()}/>);
 		const debugNode = screen.getByRole('alert');
 
 		simulateSelection(debugNode, { x: 20, y: 15 });
 
 		expect(handleMouseUp).toHaveBeenCalledWith(expect.objectContaining({ end: { x: 20, y: 15 } }));
+	});
+
+	test(`given the prop "handleMouseMove", It is called
+		with the coordinates when the user is moving the
+		region of selection`, () => {
+		const handleMouseMove = vi.fn();
+		render(<DummyComponent handleMouseUp={vi.fn()} handleMouseMove={handleMouseMove} />);
+		const debugNode = screen.getByRole('alert');
+
+		simulateSelection(debugNode, { x: 20, y: 15 });
+
+		expect(handleMouseMove).toHaveBeenCalledWith(expect.objectContaining({ end: { x: 20, y: 15 } }));
 	});
 });
