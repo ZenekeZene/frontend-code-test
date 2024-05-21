@@ -25,6 +25,9 @@ const actions = (self) => ({
   },
   setText(text) {
     self.text = text;
+  },
+  setHovered(value) {
+    self.isHovered = value;
   }
 });
 
@@ -38,7 +41,8 @@ const BoxModel = types
     left: types.number,
     top: types.number,
     isSelected: false,
-    text: types.string,
+    isHovered: false,
+    text: types.maybeNull(types.string),
   })
   .volatile(self => ({
     node: null,

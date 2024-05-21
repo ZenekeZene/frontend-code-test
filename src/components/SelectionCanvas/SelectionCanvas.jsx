@@ -34,11 +34,19 @@ const SelectionCanvas = ({ boxes, onMouseUp, children }) => {
 		onMouseUp(selectedBoxes);
   };
 
+	const handleMouseMove = (coordinates) => {
+		const selectedBoxes = calculateSelectedBoxes(boxes, coordinates);
+		boxes.forEach((box) => {
+			const isSelected = selectedBoxes.includes(box);
+			box.setHovered(isSelected);
+		});
+	};
+
   const {
 		isSelecting,
 		coordinates,
 		...events
-	} = useSelectionToolCoordinates({ handleMouseUp });
+	} = useSelectionToolCoordinates({ handleMouseMove, handleMouseUp });
 
 	return (
 		<div
