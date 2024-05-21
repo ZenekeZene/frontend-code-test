@@ -43,8 +43,8 @@ describe('BoxDraggable component:', () => {
 		const boxElement = screen.getByRole('button');
 
 		expect(boxElement).toHaveStyle(`
-			width: 10px;
-			height: 20px;
+			minWidth: 10px;
+			minHeight: 20px;
 			transform: translate(30px, 40px);
 		`);
 		expect(boxElement).not.toHaveStyle(`border: 2px solid #333;`);
