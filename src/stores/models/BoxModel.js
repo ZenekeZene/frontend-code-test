@@ -14,6 +14,12 @@ const actions = (self) => ({
   unselect() {
     self.isSelected = false;
   },
+  changeCurrentColor(color) {
+    self.currentColor = color;
+  },
+  changeCurrentBackgroundColor(backgroundColor) {
+    self.currentBackgroundColor = backgroundColor;
+  },
   changeColor(color) {
     self.color = color;
   },
@@ -36,25 +42,27 @@ const BoxModel = types
     id: types.identifier,
     width: size.width,
     height: size.height,
-    color: types.string,
-    backgroundColor: availableBackgroundColors[0],
     left: types.number,
     top: types.number,
-    isSelected: false,
     text: types.maybeNull(types.string),
+    color: types.string,
+    backgroundColor: availableBackgroundColors[0],
   })
   .volatile(self => ({
     node: null,
     isHovered: false,
+    isSelected: false,
+    currentColor: self.color,
+    currentBackgroundColor: self.backgroundColor
   }))
   .views(self => ({
     get lighterBackgroundColor() {
-      const color = tinycolor(self.backgroundColor);
+      const color = tinycolor(self.currentBackgroundColor);
       const lighterColor = color.lighten(30);
       return lighterColor.toString();
     },
     get darkerBackgroundColor() {
-      const color = tinycolor(self.backgroundColor);
+      const color = tinycolor(self.currentBackgroundColor);
       const darkerColor = color.darken(20);
       return darkerColor.toString();
     }

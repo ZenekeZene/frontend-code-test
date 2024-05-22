@@ -5,25 +5,43 @@ import { IconFontColors } from "../../icons/IconFontColors";
 import "./BoxTools.css";
 
 const BoxTools = ({ box, isEditing, onEdit, onRemove }) => {
-	const { backgroundColor } = box;
+	const { currentBackgroundColor } = box;
 
 	const handleChangeColor = (event) => {
-    box.changeColor(event.target.value);
+		box.changeCurrentColor(event.target.value);
   };
 
   const handleChangeBackgroundColor = (event) => {
-    box.changeBackgroundColor(event.target.value);
+    box.changeCurrentBackgroundColor(event.target.value);
   };
+
+	const handleBlurColor = (event) => {
+		box.changeColor(event.target.value);
+	};
+
+	const handleBlurBackgroundColor = (event) => {
+		box.changeBackgroundColor(event.target.value);
+	};
 
 	return (
 		<section className="box-tools">
-			<span className="box-tools__bgcolor box-tools__tool">
-				<span className="box-tools__bgcolor-watch" style={{ backgroundColor }}></span>
-				<input type="color" onChange={handleChangeBackgroundColor} />
+			<span className="box-tools__bgcolor box-tools__tool"
+				onBlur={handleBlurBackgroundColor}
+			>
+				<span className="box-tools__bgcolor-watch"
+					style={{ backgroundColor: currentBackgroundColor }}
+				></span>
+				<input type="color"
+					onChange={handleChangeBackgroundColor}
+				/>
 			</span>
-			<span className="box-tools__color box-tools__tool">
+			<span className="box-tools__color box-tools__tool"
+				onBlur={handleBlurColor}
+			>
 				<IconFontColors />
-				<input type="color" onChange={handleChangeColor} />
+				<input type="color"
+					onChange={handleChangeColor}
+				/>
 			</span>
 			<span className="box-tools__remove box-tools__tool"
 				onClick={onRemove}

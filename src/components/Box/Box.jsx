@@ -34,7 +34,7 @@ const Box = React.forwardRef((props, ref) => {
     >
       <BoxFolderAesthetic
         height={props.height}
-        backgroundColor={box.backgroundColor}
+        backgroundColor={box.currentBackgroundColor}
         darkerBackgroundColor={box.darkerBackgroundColor}
       >
         { !props.areMultipleBoxesSelected && (
@@ -49,7 +49,7 @@ const Box = React.forwardRef((props, ref) => {
         <BoxText
           isEditing={isEditing}
           text={box.text}
-          color={box.color}
+          color={box.currentColor}
           onBlur={onTextBlur}
         />
 
