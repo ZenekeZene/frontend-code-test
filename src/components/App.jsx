@@ -1,15 +1,13 @@
 import React from "react";
 import { observer } from "mobx-react";
-import store from "../stores/MainStore";
-import { createInitialBoxes } from "../stores/initialStore";
+import store, { undoManager } from "../stores/MainStore";
 import { debugStore } from "../stores/useStoreDebug";
 import Canvas from "./Canvas";
 import { Toolbar } from "./Toolbar/Toolbar";
 
-createInitialBoxes({ store });
-
 function App() {
   debugStore(store);
+  debugStore(undoManager);
 
   return (
     <div className="app">
