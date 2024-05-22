@@ -34,6 +34,17 @@ const actions = (self) => ({
   },
   setHovered(value) {
     self.isHovered = value;
+  },
+  setIsEditingColor(value) {
+    self.isEditingColor = value;
+    self.currentColor = self.color;
+  },
+  setIsEditingBackgroundColor(value) {
+    self.isEditingBackgroundColor = value;
+    self.currentBackgroundColor = self.backgroundColor;
+  },
+  setIsEditingText(value) {
+    self.isEditingText = value;
   }
 });
 
@@ -52,6 +63,9 @@ const BoxModel = types
     node: null,
     isHovered: false,
     isSelected: false,
+    isEditingColor: false,
+    isEditingBackgroundColor: false,
+    isEditingText: false,
     currentColor: self.color,
     currentBackgroundColor: self.backgroundColor
   }))
@@ -62,7 +76,7 @@ const BoxModel = types
       return lighterColor.toString();
     },
     get darkerBackgroundColor() {
-      const color = tinycolor(self.currentBackgroundColor);
+      const color = tinycolor(self.isEditingBackgroundColor ? self.currentBackgroundColor : self.backgroundColor);
       const darkerColor = color.darken(20);
       return darkerColor.toString();
     }

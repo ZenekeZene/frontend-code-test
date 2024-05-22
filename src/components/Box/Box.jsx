@@ -7,19 +7,14 @@ import { BoxText } from "../BoxText/BoxText";
 import "./Box.css";
 
 const Box = React.forwardRef((props, ref) => {
-  const [isEditing, setIsEditing] = React.useState(false);
   const localRef = React.useRef();
   const { box } = props;
 
   React.useImperativeHandle(ref, () => localRef.current);
 
   const handleDoubleClick = () => {
-    if (isEditing) return;
-    setIsEditing(true);
-  };
-
-  const handleEdit = () => {
-    setIsEditing(!isEditing);
+    if (box.isEditingText) return;
+    box.setIsEditingText(true);
   };
 
   const onTextBlur = (event) => {
@@ -34,22 +29,20 @@ const Box = React.forwardRef((props, ref) => {
     >
       <BoxFolderAesthetic
         height={props.height}
-        backgroundColor={box.currentBackgroundColor}
+        backgroundColor={box.isEditingBackgroundColor ? box.currentBackgroundColor : box.backgroundColor}
         darkerBackgroundColor={box.darkerBackgroundColor}
       >
         { !props.areMultipleBoxesSelected && (
           <BoxTools
             box={box}
-            isEditing={isEditing}
-            onEdit={handleEdit}
             onRemove={props.onRemove}
           />
         )}
 
         <BoxText
-          isEditing={isEditing}
+          isEditing={box.isEditingText}
           text={box.text}
-          color={box.currentColor}
+          color={box.isEditingColor ? box.currentColor : box.color }
           onBlur={onTextBlur}
         />
 

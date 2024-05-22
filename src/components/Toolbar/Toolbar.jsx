@@ -1,6 +1,7 @@
 import React from "react";
 import { v4 as uuid } from "uuid";
 import { observer } from "mobx-react";
+import { undoManager } from "../../stores/MainStore";
 import { getRandomCoordinates } from "../../utils/getRandomCoordinates";
 import BoxModel from "../../stores/models/BoxModel";
 import { availableBackgroundColors, defaultFontColor } from '../../constants/colors';
@@ -22,26 +23,29 @@ const createNewBox = () => {
 
 const Toolbar = observer(({ store }) => {
   const isAnyBoxSelected = store.isAnyBoxSelected();
-  const selectedBoxes = store.getSelectedBoxes();
+  const lastBackgroundColor = store.getLastBackgroundColorOfSelectedBoxes();
 
   const handleAddBox = () => {
     const newBox = createNewBox();
     store.addBox(newBox);
   };
 
-  const handleRemoveBoxes = () => {
-    if (!isAnyBoxSelected) return;
-    store.removeSelectedBoxes();
+  const handleChangeBackgroundColor = (event) => {
+    store.changeCurrentBackgroundColorOfSelectedBoxes(event.target.value);
   };
 
-  const handleChangeBackgroundColor = (event) => {
-    if (!isAnyBoxSelected) return;
-    store.changeSelectedBoxesColor(event.target.value);
+  const handleBlurBackgroundColor = (event) => {
+    store.changeBackgroundColorOfSelectedBoxes(event.target.value);
   };
+
+  const undo = () => undoManager.canUndo && undoManager.undo();
+  const redo = () => undoManager.canRedo && undoManager.redo();
 
   return (
     <nav className="nav">
       <Counter store={store} />
+      <button onClick={undo}>Undo</button>
+      <button onClick={redo}>Redo</button>
       <ul className="toolbar">
         <li className={`toolbar__tool ${isAnyBoxSelected ? '--is-disabled': ''}`}>
           <IconAdd
@@ -56,15 +60,19 @@ const Toolbar = observer(({ store }) => {
             role="button"
             aria-label="Remove folders"
             disabled={!isAnyBoxSelected}
-            onClick={handleRemoveBoxes}
+            onClick={store.removeSelectedBoxes}
           />
         </li>
         <li className={`toolbar__tool ${!isAnyBoxSelected ? '--is-disabled': ''}`}>
-          <span className="toolbar__bgcolor-watch" style={{ backgroundColor: isAnyBoxSelected ? selectedBoxes[selectedBoxes.length - 1].backgroundColor : 'black' }}></span>
+          <span className="toolbar__bgcolor-watch"
+            style={{ backgroundColor: lastBackgroundColor }}
+          ></span>
           <input
+            onBlur={handleBlurBackgroundColor}
+            onChange={handleChangeBackgroundColor}
             disabled={!isAnyBoxSelected}
             type="color"
-            onChange={handleChangeBackgroundColor}
+            value={lastBackgroundColor}
           />
         </li>
       </ul>
