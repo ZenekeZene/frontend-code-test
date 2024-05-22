@@ -3,6 +3,11 @@ import { UndoManager } from "mst-middlewares";
 import BoxModel from "./models/BoxModel";
 import { createInitialBoxes } from "../stores/initialStore";
 import { availableBackgroundColors } from "../constants/colors";
+import { PersistService } from "../services/persist.service";
+
+const BOXES = Object.freeze({
+  key: 'boxes',
+});
 
 const views = (self) => ({
   get selectedBox() {
@@ -27,7 +32,7 @@ const views = (self) => ({
     const selectedBoxes = self.getSelectedBoxes();
     const lastSelectedBox = selectedBoxes[selectedBoxes.length - 1];
     return self.isAnyBoxSelected() ? lastSelectedBox.currentBackgroundColor : availableBackgroundColors[0];
-  },
+  }
 });
 
 const actions = (self) => {
@@ -38,6 +43,12 @@ const actions = (self) => {
       undoManager.withoutUndo(() => {
         createInitialBoxes({ store: self });
       });
+    },
+    loadFromStorage: () => {
+      PersistService({ store: self, whitelist: [BOXES.key] })
+        .persist().then(() => {
+          undoManager.clear();
+        });
     },
     addBox: (box) => {
       self.boxes.push(box);
@@ -94,7 +105,7 @@ const actions = (self) => {
 
 const MainStore = types
   .model("MainStore", {
-    boxes: types.array(BoxModel),
+    [BOXES.key]: types.array(BoxModel),
   })
   .actions(actions)
   .views(views);

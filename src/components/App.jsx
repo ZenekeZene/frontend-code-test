@@ -5,6 +5,8 @@ import { debugStore } from "../stores/useStoreDebug";
 import Canvas from "./Canvas";
 import { Toolbar } from "./Toolbar/Toolbar";
 
+store.loadFromStorage();
+
 function App() {
   debugStore(store);
   debugStore(undoManager);
