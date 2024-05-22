@@ -5,4 +5,4 @@ export const availableBackgroundColors = [
   '#5BD7BE',
 ];
 
-export const defaultFontColor = 'black';
+export const defaultFontColor = '#000000';
