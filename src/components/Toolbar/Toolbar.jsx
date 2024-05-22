@@ -9,6 +9,8 @@ import { canvasSize } from "../Canvas";
 import { Counter } from "../Counter/Counter";
 import { IconAdd } from "../../icons/iconAdd";
 import { IconDelete } from "../../icons/IconDelete";
+import { IconUndo } from "../../icons/IconUndo";
+import { IconRedo } from "../../icons/IconRedo";
 import "./Toolbar.css";
 
 const createNewBox = () => {
@@ -44,24 +46,22 @@ const Toolbar = observer(({ store }) => {
   return (
     <nav className="nav">
       <Counter store={store} />
-      <button onClick={undo}>Undo</button>
-      <button onClick={redo}>Redo</button>
       <ul className="toolbar">
-        <li className={`toolbar__tool ${isAnyBoxSelected ? '--is-disabled': ''}`}>
-          <IconAdd
-            role="button"
-            aria-label="Add folder"
-            onClick={handleAddBox}
-            disabled={isAnyBoxSelected}
-          />
+        <li className={`toolbar__tool ${isAnyBoxSelected ? '--is-disabled': ''}`}
+          role="button"
+          aria-label="Add folder"
+          onClick={handleAddBox}
+          disabled={isAnyBoxSelected}
+        >
+          <IconAdd />
         </li>
-        <li className={`toolbar__tool ${!isAnyBoxSelected ? '--is-disabled': ''}`}>
-          <IconDelete
-            role="button"
-            aria-label="Remove folders"
-            disabled={!isAnyBoxSelected}
-            onClick={store.removeSelectedBoxes}
-          />
+        <li className={`toolbar__tool ${!isAnyBoxSelected ? '--is-disabled': ''}`}
+          role="button"
+          aria-label="Remove folders"
+          disabled={!isAnyBoxSelected}
+          onClick={store.removeSelectedBoxes}
+        >
+          <IconDelete />
         </li>
         <li className={`toolbar__tool ${!isAnyBoxSelected ? '--is-disabled': ''}`}>
           <span className="toolbar__bgcolor-watch"
@@ -74,6 +74,22 @@ const Toolbar = observer(({ store }) => {
             type="color"
             value={lastBackgroundColor}
           />
+        </li>
+        <li className={`toolbar__tool ${!undoManager.canUndo ? '--is-disabled': ''}`}
+          role="button"
+          aria-label="Undo"
+          disabled={!undoManager.canUndo}
+          onClick={undo}
+          >
+          <IconUndo />
+        </li>
+        <li className={`toolbar__tool ${!undoManager.canRedo ? '--is-disabled': ''}`}
+          role="button"
+          aria-label="Redo"
+          disabled={!undoManager.canRedo}
+          onClick={redo}
+        >
+          <IconRedo />
         </li>
       </ul>
     </nav>
