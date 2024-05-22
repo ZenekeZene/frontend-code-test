@@ -41,11 +41,11 @@ const BoxModel = types
     left: types.number,
     top: types.number,
     isSelected: false,
-    isHovered: false,
     text: types.maybeNull(types.string),
   })
   .volatile(self => ({
     node: null,
+    isHovered: false,
   }))
   .views(self => ({
     get lighterBackgroundColor() {

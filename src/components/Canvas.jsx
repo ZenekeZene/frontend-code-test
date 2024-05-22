@@ -40,7 +40,7 @@ const Canvas = ({ store }) => {
 
   const handleMouseOver = (box) => {
     !areMultipleBoxesSelected && setSingleBoxToDrag(box);
-    box.setHovered(true);
+    !box.isSelected && box.setHovered(true);
   };
 
   const handleMouseLeave = (box) => {
@@ -48,10 +48,11 @@ const Canvas = ({ store }) => {
     box.setHovered(false);
   };
 
-  const handleMouseMove = (selectedBoxes) => {
+  const handleMouseMove = (hoveredBoxes) => {
     store.boxes.forEach((box) => {
-			const isSelected = selectedBoxes.includes(box);
-			box.setHovered(isSelected);
+			const isHovered = hoveredBoxes.includes(box);
+      if (box.isHovered === isHovered) return;
+			box.setHovered(isHovered);
 		});
   };
 

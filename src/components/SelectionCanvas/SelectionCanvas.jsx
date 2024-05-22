@@ -35,8 +35,8 @@ const SelectionCanvas = ({ boxes, onMouseUp, onMouseMove, children }) => {
   };
 
 	const handleMouseMove = (coordinates) => {
-		const selectedBoxes = calculateSelectedBoxes(boxes, coordinates);
-		onMouseMove(selectedBoxes);
+		const hoveredBoxes = calculateSelectedBoxes(boxes, coordinates);
+		onMouseMove(hoveredBoxes);
 	};
 
   const {
