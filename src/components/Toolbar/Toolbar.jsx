@@ -2,11 +2,8 @@ import React from "react";
 import { observer } from "mobx-react";
 import { getUndoManager } from "../../services/undo.service";
 import { createBox } from "../../stores/models/createBox";
+import { Icon } from "../../icons";
 import { Counter } from "../Counter/Counter";
-import { IconAdd } from "../../icons/iconAdd";
-import { IconDelete } from "../../icons/IconDelete";
-import { IconUndo } from "../../icons/IconUndo";
-import { IconRedo } from "../../icons/IconRedo";
 import "./Toolbar.css";
 
 const undoManager = getUndoManager();
@@ -41,7 +38,7 @@ const Toolbar = observer(({ store }) => {
           onClick={handleAddBox}
           disabled={isAnyBoxSelected}
         >
-          <IconAdd />
+          <Icon.Add />
         </li>
         <li className={`toolbar__tool ${!isAnyBoxSelected ? '--is-disabled': ''}`}
           role="button"
@@ -49,7 +46,7 @@ const Toolbar = observer(({ store }) => {
           disabled={!isAnyBoxSelected}
           onClick={store.removeSelectedBoxes}
         >
-          <IconDelete />
+          <Icon.Delete />
         </li>
         <li className={`toolbar__tool ${!isAnyBoxSelected ? '--is-disabled': ''}`}>
           <span className="toolbar__bgcolor-watch"
@@ -69,7 +66,7 @@ const Toolbar = observer(({ store }) => {
           disabled={!undoManager.canUndo}
           onClick={undo}
           >
-          <IconUndo />
+          <Icon.Undo />
         </li>
         <li className={`toolbar__tool ${!undoManager.canRedo ? '--is-disabled': ''}`}
           role="button"
@@ -77,7 +74,7 @@ const Toolbar = observer(({ store }) => {
           disabled={!undoManager.canRedo}
           onClick={redo}
         >
-          <IconRedo />
+          <Icon.Redo />
         </li>
       </ul>
     </nav>

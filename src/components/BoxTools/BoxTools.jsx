@@ -1,7 +1,5 @@
 import React from 'react';
-import { IconDelete } from "../../icons/IconDelete";
-import { IconEdit } from "../../icons/IconEdit";
-import { IconFontColors } from "../../icons/IconFontColors";
+import { Icon } from "../../icons";
 import "./BoxTools.css";
 
 const BoxTools = ({ box, onRemove }) => {
@@ -44,7 +42,7 @@ const BoxTools = ({ box, onRemove }) => {
 			<span className="box-tools__color box-tools__tool"
 				onBlur={handleBlurColor}
 			>
-				<IconFontColors />
+				<Icon.FontColors />
 				<input type="color"
 					onFocus={() => box.setIsEditingColor(true)}
 					onChange={handleChangeColor}
@@ -54,12 +52,12 @@ const BoxTools = ({ box, onRemove }) => {
 			<span className="box-tools__remove box-tools__tool"
 				onClick={onRemove}
 			>
-				<IconDelete />
+				<Icon.Delete />
 			</span>
 			<span className={`box-tools__edit box-tools__tool ${box.isEditingText ? '--is-editing': ''}`}
 				onClick={handleEditText}
 			>
-				<IconEdit />
+				<Icon.Edit />
 			</span>
 		</section>
 	);
