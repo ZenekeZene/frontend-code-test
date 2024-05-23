@@ -6,14 +6,14 @@ import { canvasSize } from "../../constants/canvas";
 import { boxSize } from "../../constants/box";
 import { getRandomCoordinates } from "../../utils/getRandomCoordinates";
 
-export const createBox = () => {
+export const createBox = ({ backgroundColor } = { background: null }) => {
   const coordinates = getRandomCoordinates(canvasSize, boxSize);
-	const backgroundColor = availableBackgroundColors[Math.floor(Math.random() * availableBackgroundColors.length)];
+	const randomBackgroundColor = availableBackgroundColors[Math.floor(Math.random() * availableBackgroundColors.length)];
 
   return BoxModel.create({
     id: uuid(),
     color: defaultFontColor,
-    backgroundColor,
+    backgroundColor: backgroundColor || randomBackgroundColor,
     ...coordinates,
   });
 };

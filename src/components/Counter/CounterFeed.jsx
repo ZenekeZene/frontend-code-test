@@ -15,6 +15,7 @@ const CounterFeed = ({ boxes, isAnyBoxSelected, onClick }) => {
 			<li key={`box-${index}`}
 				className={`counter__item ${box.isSelected ? '--is-selected': ''}`}
 				role="button"
+				aria-label={`Box ${index + 1}`}
 				style={style(box)}
 				onClick={() => onClick(box)}
 				onMouseOver={() => box.setHovered(true)}

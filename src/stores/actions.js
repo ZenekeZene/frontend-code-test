@@ -31,6 +31,9 @@ export const actions = (self) => {
         self.boxes.splice(index, 1);
       });
     },
+    removeAllBoxes: () => {
+      self.boxes.clear();
+    },
     selectBox: (box) => {
       self.boxes.forEach(b => {
         if (b.id === box.id) {
