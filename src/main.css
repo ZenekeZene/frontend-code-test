@@ -1,15 +1,15 @@
 :root {
-	--selected-tool: black;
-	--selected-color: #e2e9f0;
-	--selected-border-width: 2px;
-	--selected-border: var(--selected-border-width) solid var(--selected-color);
-	--icon-size: 1.5rem;
+  --selected-tool: black;
+  --selected-color: #e2e9f0;
+  --selected-border-width: 2px;
+  --selected-border: var(--selected-border-width) solid var(--selected-color);
+  --icon-size: 1.5rem;
 }
 
 * {
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body,

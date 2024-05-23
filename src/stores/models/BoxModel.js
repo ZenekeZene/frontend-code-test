@@ -1,7 +1,7 @@
 import { types } from "mobx-state-tree";
 import tinycolor from "tinycolor2";
 import { availableBackgroundColors } from "../../constants/colors";
-import { boxSize } from '../../constants/box';
+import { boxSize } from "../../constants/box";
 
 const actions = (self) => ({
   move(left, top) {
@@ -45,7 +45,7 @@ const actions = (self) => ({
   },
   setIsEditingText(value) {
     self.isEditingText = value;
-  }
+  },
 });
 
 const BoxModel = types
@@ -59,7 +59,7 @@ const BoxModel = types
     color: types.string,
     backgroundColor: availableBackgroundColors[0],
   })
-  .volatile(self => ({
+  .volatile((self) => ({
     node: null,
     isHovered: false,
     isSelected: false,
@@ -67,19 +67,23 @@ const BoxModel = types
     isEditingBackgroundColor: false,
     isEditingText: false,
     currentColor: self.color,
-    currentBackgroundColor: self.backgroundColor
+    currentBackgroundColor: self.backgroundColor,
   }))
-  .views(self => ({
+  .views((self) => ({
     get lighterBackgroundColor() {
       const color = tinycolor(self.currentBackgroundColor);
       const lighterColor = color.lighten(30);
       return lighterColor.toString();
     },
     get darkerBackgroundColor() {
-      const color = tinycolor(self.isEditingBackgroundColor ? self.currentBackgroundColor : self.backgroundColor);
+      const color = tinycolor(
+        self.isEditingBackgroundColor
+          ? self.currentBackgroundColor
+          : self.backgroundColor,
+      );
       const darkerColor = color.darken(20);
       return darkerColor.toString();
-    }
+    },
   }))
   .actions(actions);
 

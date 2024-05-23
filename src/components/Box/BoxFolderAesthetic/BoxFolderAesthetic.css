@@ -1,54 +1,54 @@
 .folder__paper {
-	position: absolute;
-	top: -0.3rem;
-	width: 90%;
-	height: 1rem;
-	background-color: white;
+  position: absolute;
+  top: -0.3rem;
+  width: 90%;
+  height: 1rem;
+  background-color: white;
 }
 
 .folder__front {
-	position: relative;
-	z-index: 1;
-	width: 100%;
-	height: auto;
-	border-bottom-left-radius: 0.25rem;
-	border-bottom-right-radius: 0.25rem;
-	border-bottom-width: 4px;
-	border-bottom-style: solid;
-	box-shadow: 0 0 15px 3px rgba(0, 0, 0, 0.15);
-	border-radius: 0.25rem;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: auto;
+  border-bottom-left-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+  border-bottom-width: 4px;
+  border-bottom-style: solid;
+  box-shadow: 0 0 15px 3px rgba(0, 0, 0, 0.15);
+  border-radius: 0.25rem;
 }
 
 .folder__back {
-	position: absolute;
-	top: -0.6rem;
-	left: 0;
-	z-index: -1;
-	width: 96%;
-	height: 100%;
+  position: absolute;
+  top: -0.6rem;
+  left: 0;
+  z-index: -1;
+  width: 96%;
+  height: 100%;
 }
 
 .folder__ribbon {
-	position: absolute;
-	top: -0.8rem;
-	right: -0.05rem;
-	z-index: 1;
-	width: 6rem;
-	height: 1rem;
+  position: absolute;
+  top: -0.8rem;
+  right: -0.05rem;
+  z-index: 1;
+  width: 6rem;
+  height: 1rem;
 }
 
 .folder__ribbon-back {
-	position: absolute;
-	top: -1.5rem;
-	left: 0;
-	z-index: 1;
-	height: 1rem;
+  position: absolute;
+  top: -1.5rem;
+  left: 0;
+  z-index: 1;
+  height: 1rem;
 }
 
 .folder__ribbon,
 .folder__ribbon-back {
-	fill-rule: 'evenodd';
-	clip-rule: 'evenodd';
-	stroke-linejoin: 'round';
-	stroke-miterlimit: '2';
+  fill-rule: "evenodd";
+  clip-rule: "evenodd";
+  stroke-linejoin: "round";
+  stroke-miterlimit: "2";
 }

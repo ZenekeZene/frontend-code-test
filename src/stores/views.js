@@ -2,13 +2,13 @@ import { availableBackgroundColors } from "../constants/colors";
 
 export const views = (self) => ({
   get selectedBox() {
-    return self.boxes.find(box => box.isSelected);
+    return self.boxes.find((box) => box.isSelected);
   },
   getNumberOfCreatedBoxes() {
     return self.boxes.length;
   },
   getSelectedBoxes() {
-    return self.boxes.filter(box => box.isSelected);
+    return self.boxes.filter((box) => box.isSelected);
   },
   getNumberOfSelectedBoxes() {
     return self.getSelectedBoxes().length;
@@ -22,6 +22,8 @@ export const views = (self) => ({
   getLastBackgroundColorOfSelectedBoxes() {
     const selectedBoxes = self.getSelectedBoxes();
     const lastSelectedBox = selectedBoxes[selectedBoxes.length - 1];
-    return self.isAnyBoxSelected() ? lastSelectedBox.currentBackgroundColor : availableBackgroundColors[0];
-  }
+    return self.isAnyBoxSelected()
+      ? lastSelectedBox.currentBackgroundColor
+      : availableBackgroundColors[0];
+  },
 });

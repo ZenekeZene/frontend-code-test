@@ -4,10 +4,10 @@ import { isAlive } from "mobx-state-tree";
 import { canvasSize } from "../../constants/canvas";
 import { useMultipleDraggable } from "../../hooks/useMultipleDraggable/useMultipleDraggable";
 import { useClickOutside } from "../../hooks/useClickOutside/useClickOutside";
-import { DragService } from '../../services/drag.service';
+import { DragService } from "../../services/drag.service";
 import { SelectionCanvas } from "../SelectionCanvas/SelectionCanvas";
 import BoxEditable from "../Box/BoxEditable/BoxEditable";
-import './Canvas.css';
+import "./Canvas.css";
 
 const Canvas = ({ store }) => {
   const [singleBoxToDrag, setSingleBoxToDrag] = React.useState(null);
@@ -22,9 +22,13 @@ const Canvas = ({ store }) => {
 
   const isSingleBoxToDrag = singleBoxToDrag && !areMultipleBoxesSelected;
   const boxesToDrag = isSingleBoxToDrag ? [singleBoxToDrag] : selectedBoxes;
-  useMultipleDraggable({ boxes: boxesToDrag, dragService: DragService, onDragEnd })
+  useMultipleDraggable({
+    boxes: boxesToDrag,
+    dragService: DragService,
+    onDragEnd,
+  });
 
-  const ref = box => node => {
+  const ref = (box) => (node) => {
     if (!isAlive(box)) return;
     box.setNode(node);
   };
@@ -46,10 +50,10 @@ const Canvas = ({ store }) => {
 
   const handleMouseMove = (hoveredBoxes) => {
     store.boxes.forEach((box) => {
-			const isHovered = hoveredBoxes.includes(box);
+      const isHovered = hoveredBoxes.includes(box);
       if (box.isHovered === isHovered) return;
-			box.setHovered(isHovered);
-		});
+      box.setHovered(isHovered);
+    });
   };
 
   return (

@@ -1,8 +1,8 @@
-import React from 'react';
-import './BoxText.css';
+import React from "react";
+import "./BoxText.css";
 
-const BoxText = ({ isEditing, color, text, onBlur  }) => {
-	const textRef = React.useRef();
+const BoxText = ({ isEditing, color, text, onBlur }) => {
+  const textRef = React.useRef();
 
   const focusInLastCharacter = React.useCallback(() => {
     const range = document.createRange();
@@ -18,17 +18,20 @@ const BoxText = ({ isEditing, color, text, onBlur  }) => {
     isEditing && focusInLastCharacter();
   }, [isEditing, focusInLastCharacter]);
 
-	return (
-		<div ref={textRef}
+  return (
+    <div
+      ref={textRef}
       role="textbox"
       aria-label="Edit the text"
-			className="box__text"
-			contentEditable={isEditing}
-			suppressContentEditableWarning
-			onBlur={onBlur}
-			style={{ color }}
-		>{text}</div>
-	);
+      className="box__text"
+      contentEditable={isEditing}
+      suppressContentEditableWarning
+      onBlur={onBlur}
+      style={{ color }}
+    >
+      {text}
+    </div>
+  );
 };
 
 export { BoxText };

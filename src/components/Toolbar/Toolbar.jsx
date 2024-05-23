@@ -32,7 +32,8 @@ const Toolbar = observer(({ store }) => {
     <nav className="nav">
       <Counter store={store} />
       <ul className="toolbar">
-        <li className={`toolbar__tool ${isAnyBoxSelected ? '--is-disabled': ''}`}
+        <li
+          className={`toolbar__tool ${isAnyBoxSelected ? "--is-disabled" : ""}`}
           role="button"
           aria-label="Add folder"
           onClick={handleAddBox}
@@ -40,7 +41,8 @@ const Toolbar = observer(({ store }) => {
         >
           <Icon.Add />
         </li>
-        <li className={`toolbar__tool ${!isAnyBoxSelected ? '--is-disabled': ''}`}
+        <li
+          className={`toolbar__tool ${!isAnyBoxSelected ? "--is-disabled" : ""}`}
           role="button"
           aria-label="Remove folders"
           disabled={!isAnyBoxSelected}
@@ -48,8 +50,11 @@ const Toolbar = observer(({ store }) => {
         >
           <Icon.Delete />
         </li>
-        <li className={`toolbar__tool ${!isAnyBoxSelected ? '--is-disabled': ''}`}>
-          <span className="toolbar__bgcolor-watch"
+        <li
+          className={`toolbar__tool ${!isAnyBoxSelected ? "--is-disabled" : ""}`}
+        >
+          <span
+            className="toolbar__bgcolor-watch"
             style={{ backgroundColor: lastBackgroundColor }}
           ></span>
           <input
@@ -60,15 +65,17 @@ const Toolbar = observer(({ store }) => {
             value={lastBackgroundColor}
           />
         </li>
-        <li className={`toolbar__tool ${!undoManager.canUndo ? '--is-disabled': ''}`}
+        <li
+          className={`toolbar__tool ${!undoManager.canUndo ? "--is-disabled" : ""}`}
           role="button"
           aria-label="Undo"
           disabled={!undoManager.canUndo}
           onClick={undo}
-          >
+        >
           <Icon.Undo />
         </li>
-        <li className={`toolbar__tool ${!undoManager.canRedo ? '--is-disabled': ''}`}
+        <li
+          className={`toolbar__tool ${!undoManager.canRedo ? "--is-disabled" : ""}`}
           role="button"
           aria-label="Redo"
           disabled={!undoManager.canRedo}

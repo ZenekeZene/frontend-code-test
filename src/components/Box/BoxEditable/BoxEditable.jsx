@@ -22,30 +22,26 @@ const Box = React.forwardRef((props, ref) => {
   };
 
   return (
-    <BoxDraggable
-      {...props}
-      ref={localRef}
-      onDoubleClick={handleDoubleClick}
-    >
+    <BoxDraggable {...props} ref={localRef} onDoubleClick={handleDoubleClick}>
       <BoxFolderAesthetic
         height={props.height}
-        backgroundColor={box.isEditingBackgroundColor ? box.currentBackgroundColor : box.backgroundColor}
+        backgroundColor={
+          box.isEditingBackgroundColor
+            ? box.currentBackgroundColor
+            : box.backgroundColor
+        }
         darkerBackgroundColor={box.darkerBackgroundColor}
       >
-        { !props.areMultipleBoxesSelected && (
-          <BoxTools
-            box={box}
-            onRemove={props.onRemove}
-          />
+        {!props.areMultipleBoxesSelected && (
+          <BoxTools box={box} onRemove={props.onRemove} />
         )}
 
         <BoxText
           isEditing={box.isEditingText}
           text={box.text}
-          color={box.isEditingColor ? box.currentColor : box.color }
+          color={box.isEditingColor ? box.currentColor : box.color}
           onBlur={onTextBlur}
         />
-
       </BoxFolderAesthetic>
     </BoxDraggable>
   );
