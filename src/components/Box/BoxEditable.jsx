@@ -4,7 +4,7 @@ import BoxDraggable from "../BoxDraggable/BoxDraggable";
 import { BoxTools } from "../BoxTools/BoxTools";
 import { BoxFolderAesthetic } from "../BoxFolderAesthetic/BoxFolderAesthetic";
 import { BoxText } from "../BoxText/BoxText";
-import "./Box.css";
+import "./BoxEditable.css";
 
 const Box = React.forwardRef((props, ref) => {
   const localRef = React.useRef();

@@ -6,7 +6,7 @@ import { useMultipleDraggable } from "../hooks/useMultipleDraggable/useMultipleD
 import { useClickOutside } from "../hooks/useClickOutside/useClickOutside";
 import { DragService } from '../services/drag.service';
 import { SelectionCanvas } from "./SelectionCanvas/SelectionCanvas";
-import Box from "./Box/Box";
+import Box from "./Box/BoxEditable";
 import './Canvas.css';
 
 const Canvas = ({ store }) => {
