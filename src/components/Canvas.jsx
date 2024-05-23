@@ -1,17 +1,13 @@
 import React from "react";
 import { observer } from "mobx-react";
 import { isAlive } from "mobx-state-tree";
+import { canvasSize } from "../constants/canvas";
 import { useMultipleDraggable } from "../hooks/useMultipleDraggable/useMultipleDraggable";
 import { useClickOutside } from "../hooks/useClickOutside/useClickOutside";
 import { DragService } from '../services/drag.service';
 import { SelectionCanvas } from "./SelectionCanvas/SelectionCanvas";
 import Box from "./Box/Box";
 import './Canvas.css';
-
-export const canvasSize = {
-  width: '100%',
-  height: '100%'
-};
 
 const Canvas = ({ store }) => {
   const [singleBoxToDrag, setSingleBoxToDrag] = React.useState(null);
