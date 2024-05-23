@@ -20,6 +20,8 @@ const BoxText = ({ isEditing, color, text, onBlur  }) => {
 
 	return (
 		<div ref={textRef}
+      role="textbox"
+      aria-label="Edit the text"
 			className="box__text"
 			contentEditable={isEditing}
 			suppressContentEditableWarning
