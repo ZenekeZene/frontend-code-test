@@ -1,7 +1,7 @@
 import { types } from "mobx-state-tree";
 import tinycolor from "tinycolor2";
 import { availableBackgroundColors } from "../../constants/colors";
-import { size } from '../../constants/box';
+import { boxSize } from '../../constants/box';
 
 const actions = (self) => ({
   move(left, top) {
@@ -51,8 +51,8 @@ const actions = (self) => ({
 const BoxModel = types
   .model("Box", {
     id: types.identifier,
-    width: size.width,
-    height: size.height,
+    width: boxSize.width,
+    height: boxSize.height,
     left: types.number,
     top: types.number,
     text: types.maybeNull(types.string),

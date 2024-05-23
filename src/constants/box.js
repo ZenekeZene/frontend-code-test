@@ -3,7 +3,7 @@ import { availableBackgroundColors, defaultFontColor } from './colors';
 const widthInPixels = 136;
 const heightInPixels = 66;
 
-export const size = {
+export const boxSize = {
 	width: widthInPixels,
 	height: heightInPixels,
 	get middleWidth() {
@@ -17,8 +17,8 @@ export const size = {
 const boxConfigByDefault = {
 	color: defaultFontColor,
 	backgroundColor: availableBackgroundColors[0],
-	width: size.width,
-	height: size.height,
+	width: boxSize.width,
+	height: boxSize.height,
 };
 
 export default boxConfigByDefault;
