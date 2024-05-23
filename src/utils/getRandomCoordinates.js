@@ -10,6 +10,7 @@ const isFullScreen = (canvasSize) => {
 const getRandomCoordinates = (canvasSize, boxSize) => {
 	let width = canvasSize.width;
 	let height = canvasSize.height;
+
 	if (isFullScreen(canvasSize)) {
 		width = window.innerWidth;
 		height = window.innerHeight;
