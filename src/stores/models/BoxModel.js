@@ -83,4 +83,4 @@ const BoxModel = types
   }))
   .actions(actions);
 
-export default BoxModel;
+export { BoxModel };

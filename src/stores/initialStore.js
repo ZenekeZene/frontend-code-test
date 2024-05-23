@@ -1,5 +1,5 @@
 import { v4 as uuid } from "uuid";
-import BoxModel from "./models/BoxModel";
+import { BoxModel } from "./models/BoxModel";
 import boxesConfigByDefault, { size } from '../constants/box';
 import screen from '../constants/screen';
 
