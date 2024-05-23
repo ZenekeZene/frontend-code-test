@@ -1,6 +1,6 @@
 import React from "react";
 import { observer } from "mobx-react";
-import { undoManager } from "../../stores/MainStore";
+import { getUndoManager } from "../../services/undo.service";
 import { createBox } from "../../stores/models/createBox";
 import { Counter } from "../Counter/Counter";
 import { IconAdd } from "../../icons/iconAdd";
@@ -8,6 +8,8 @@ import { IconDelete } from "../../icons/IconDelete";
 import { IconUndo } from "../../icons/IconUndo";
 import { IconRedo } from "../../icons/IconRedo";
 import "./Toolbar.css";
+
+const undoManager = getUndoManager();
 
 const Toolbar = observer(({ store }) => {
   const isAnyBoxSelected = store.isAnyBoxSelected();

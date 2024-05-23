@@ -1,7 +1,7 @@
 import { v4 as uuid } from "uuid";
-import { BoxModel } from "./models/BoxModel";
 import boxesConfigByDefault, { size } from '../constants/box';
 import screen from '../constants/screen';
+import { BoxModel } from "./models/BoxModel";
 
 const potentialEmployee = "Zenekezene";
 const potentialEmployer = "Genially";

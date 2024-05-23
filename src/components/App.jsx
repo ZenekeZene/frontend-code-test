@@ -1,11 +1,13 @@
 import React from "react";
 import { observer } from "mobx-react";
-import store, { undoManager } from "../stores/MainStore";
+import store from "../stores/MainStore";
+import { getUndoManager } from "../services/undo.service";
 import { debugStore } from "../stores/useStoreDebug";
 import Canvas from "./Canvas";
 import { Toolbar } from "./Toolbar/Toolbar";
 
 store.loadFromStorage();
+const undoManager = getUndoManager();
 
 function App() {
   debugStore(store);
