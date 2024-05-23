@@ -1,12 +1,12 @@
 import React from "react";
 import { observer } from "mobx-react";
 import { isAlive } from "mobx-state-tree";
-import { canvasSize } from "../constants/canvas";
-import { useMultipleDraggable } from "../hooks/useMultipleDraggable/useMultipleDraggable";
-import { useClickOutside } from "../hooks/useClickOutside/useClickOutside";
-import { DragService } from '../services/drag.service';
-import { SelectionCanvas } from "./SelectionCanvas/SelectionCanvas";
-import BoxEditable from "./Box/BoxEditable/BoxEditable";
+import { canvasSize } from "../../constants/canvas";
+import { useMultipleDraggable } from "../../hooks/useMultipleDraggable/useMultipleDraggable";
+import { useClickOutside } from "../../hooks/useClickOutside/useClickOutside";
+import { DragService } from '../../services/drag.service';
+import { SelectionCanvas } from "../SelectionCanvas/SelectionCanvas";
+import BoxEditable from "../Box/BoxEditable/BoxEditable";
 import './Canvas.css';
 
 const Canvas = ({ store }) => {

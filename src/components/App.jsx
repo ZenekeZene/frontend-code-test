@@ -3,7 +3,7 @@ import { observer } from "mobx-react";
 import store from "../stores/MainStore";
 import { getUndoManager } from "../services/undo.service";
 import { debugStore } from "../stores/useStoreDebug";
-import Canvas from "./Canvas";
+import Canvas from "./Canvas/Canvas";
 import { Toolbar } from "./Toolbar/Toolbar";
 
 store.loadFromStorage();
