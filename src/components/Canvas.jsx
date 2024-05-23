@@ -6,7 +6,7 @@ import { useMultipleDraggable } from "../hooks/useMultipleDraggable/useMultipleD
 import { useClickOutside } from "../hooks/useClickOutside/useClickOutside";
 import { DragService } from '../services/drag.service';
 import { SelectionCanvas } from "./SelectionCanvas/SelectionCanvas";
-import Box from "./BoxEditable/BoxEditable";
+import BoxEditable from "./Box/BoxEditable/BoxEditable";
 import './Canvas.css';
 
 const Canvas = ({ store }) => {
@@ -63,7 +63,7 @@ const Canvas = ({ store }) => {
         onMouseMove={handleMouseMove}
       >
         {store.boxes.map((box, index) => (
-          <Box
+          <BoxEditable
             ref={ref(box)}
             key={index}
             box={box}

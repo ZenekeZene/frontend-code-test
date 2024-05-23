@@ -1,6 +1,6 @@
 import React from "react";
 import { observer } from "mobx-react";
-import { getClassnames } from '../../utils/getClassnames';
+import { getClassnames } from '../../../utils/getClassnames';
 
 const BoxDraggable = React.forwardRef(({ box, children, ...rest }, ref) => {
   const localRef = React.useRef();

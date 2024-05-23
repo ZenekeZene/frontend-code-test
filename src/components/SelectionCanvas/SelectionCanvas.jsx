@@ -1,5 +1,5 @@
 import React from 'react';
-import { BoxSelectionTool } from "../BoxSelectionTool/BoxSelectionTool";
+import { BoxSelectionTool } from "../Box/BoxSelectionTool/BoxSelectionTool";
 import { useSelectionToolCoordinates } from "../../hooks/useSelectionToolCoordinates/useSelectionToolCoordinates";
 import "./SelectionCanvas.css";
 
