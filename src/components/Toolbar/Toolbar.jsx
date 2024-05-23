@@ -1,11 +1,7 @@
 import React from "react";
-import { v4 as uuid } from "uuid";
 import { observer } from "mobx-react";
 import { undoManager } from "../../stores/MainStore";
-import { getRandomCoordinates } from "../../utils/getRandomCoordinates";
-import BoxModel from "../../stores/models/BoxModel";
-import { availableBackgroundColors, defaultFontColor } from '../../constants/colors';
-import { canvasSize } from "../Canvas";
+import { createBox } from "../../stores/models/createBox";
 import { Counter } from "../Counter/Counter";
 import { IconAdd } from "../../icons/iconAdd";
 import { IconDelete } from "../../icons/IconDelete";
@@ -13,22 +9,12 @@ import { IconUndo } from "../../icons/IconUndo";
 import { IconRedo } from "../../icons/IconRedo";
 import "./Toolbar.css";
 
-const createNewBox = () => {
-  const coordinates = getRandomCoordinates(canvasSize);
-  return BoxModel.create({
-    id: uuid(),
-    color: defaultFontColor,
-    backgroundColor: availableBackgroundColors[Math.floor(Math.random() * availableBackgroundColors.length)],
-    ...coordinates,
-  });
-};
-
 const Toolbar = observer(({ store }) => {
   const isAnyBoxSelected = store.isAnyBoxSelected();
   const lastBackgroundColor = store.getLastBackgroundColorOfSelectedBoxes();
 
   const handleAddBox = () => {
-    const newBox = createNewBox();
+    const newBox = createBox();
     store.addBox(newBox);
   };
 
