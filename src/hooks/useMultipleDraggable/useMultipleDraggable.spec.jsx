@@ -2,21 +2,12 @@ import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import { useMultipleDraggable } from "./useMultipleDraggable";
 import { DragService as DragServiceMock } from "../../services/__mocks__/drag.service.mock";
+import { createBoxWithCustomNode } from "../../stores/models/createBox";
 
 const simulateSelection = async (debugNode, { x, y }) => {
   fireEvent.mouseDown(debugNode, { clientX: 0, clientY: 0 });
   x && fireEvent.mouseMove(debugNode, { clientX: x, clientY: y });
   fireEvent.mouseUp(debugNode);
-};
-
-const createNode = ({ id, left = 0, top = 0 }) => {
-  const node = document.createElement("div");
-  node.id = id;
-  node.getBoundingClientRect = () => ({
-    top,
-    left,
-  });
-  return { node, left, top };
 };
 
 const DummyCanvas = (props) => {
@@ -28,7 +19,7 @@ const DummyCanvas = (props) => {
 describe("useMultipleDraggable hook:", () => {
   test(`Given zero boxes and a drag service,
 		the hook does nothing`, () => {
-    const boxes = [createNode({ id: "foo", top: 0, left: 0 })];
+    const boxes = [];
     const dragService = DragServiceMock;
     const onDragEnd = vi.fn();
 
@@ -44,7 +35,7 @@ describe("useMultipleDraggable hook:", () => {
   });
 
   test(`Given one box and a drag service, the box is draggable`, () => {
-    const boxes = [createNode({ id: "foo" })];
+    const boxes = [createBoxWithCustomNode({ id: "foo" })];
     const dragService = DragServiceMock;
     const onDragEnd = vi.fn();
 
@@ -64,7 +55,7 @@ describe("useMultipleDraggable hook:", () => {
 
   test(`Given two boxes at the same position and a drag service,
 		the boxes are draggable simultaneously`, () => {
-    const boxes = [createNode({ id: "foo" }), createNode({ id: "bar" })];
+    const boxes = [createBoxWithCustomNode({ id: "foo" }), createBoxWithCustomNode({ id: "bar" })];
     const dragService = DragServiceMock;
     const onDragEnd = vi.fn();
 
@@ -93,8 +84,8 @@ describe("useMultipleDraggable hook:", () => {
 		the boxes are draggable simultaneously with relation
 		of their starting points`, () => {
     const boxes = [
-      createNode({ id: "foo", top: 0, left: 0 }),
-      createNode({ id: "bar", top: 100, left: 200 }),
+      createBoxWithCustomNode({ id: "foo", top: 0, left: 0 }),
+      createBoxWithCustomNode({ id: "bar", top: 100, left: 200 }),
     ];
     const dragService = DragServiceMock;
     const onDragEnd = vi.fn();
@@ -118,10 +109,10 @@ describe("useMultipleDraggable hook:", () => {
 		and a drag end event callback, this callback is called four times
 		when the dragging ends with their corresponding final coordinates as payload`, () => {
     const boxes = [
-      createNode({ id: "foo", top: 0, left: 0 }),
-      createNode({ id: "bar", top: 100, left: 200 }),
-      createNode({ id: "baz", top: 200, left: 400 }),
-      createNode({ id: "qux", top: 300, left: 600 }),
+      createBoxWithCustomNode({ id: "foo", top: 0, left: 0 }),
+      createBoxWithCustomNode({ id: "bar", top: 100, left: 200 }),
+      createBoxWithCustomNode({ id: "baz", top: 200, left: 400 }),
+      createBoxWithCustomNode({ id: "qux", top: 300, left: 600 }),
     ];
     const dragService = DragServiceMock;
     const onDragEnd = vi.fn();

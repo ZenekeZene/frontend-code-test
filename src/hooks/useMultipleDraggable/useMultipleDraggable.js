@@ -1,3 +1,4 @@
+import { isAlive } from "mobx-state-tree";
 import React from "react";
 
 const useMultipleDraggable = ({ boxes, dragService, onDragEnd = () => {} }) => {
@@ -33,8 +34,10 @@ const useMultipleDraggable = ({ boxes, dragService, onDragEnd = () => {} }) => {
     if (!boxes) return;
     if (boxes.length === 0) return;
 
-    boxes.forEach((box) => {
+    const boxesAlive = boxes.filter(isAlive);
+    boxesAlive.forEach((box) => {
       const { node } = box;
+      if (!node) return;
       node.setAttribute("data-x", box.left);
       node.setAttribute("data-y", box.top);
 
