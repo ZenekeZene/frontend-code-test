@@ -5,9 +5,6 @@ import { BoxModel } from "./models/BoxModel";
 
 const potentialEmployee = "Zenekezene";
 const potentialEmployer = "Genially";
-const subject = Math.random() > 0.5 ? potentialEmployee : potentialEmployer;
-const anotherSubject =
-  (subject === potentialEmployee ? potentialEmployer : potentialEmployee) + "!";
 
 const gapInPixels = 60;
 
@@ -28,12 +25,12 @@ const createInitialBoxes = ({ store }) => {
 
   addBoxToStore(
     screen.x - boxSize.width - boxSize.middleWidth - gapInPixels,
-    subject,
+    potentialEmployee,
   );
   addBoxToStore(screen.x - boxSize.middleWidth, "meets");
   addBoxToStore(
     screen.x + boxSize.width - boxSize.middleWidth + gapInPixels,
-    anotherSubject,
+    potentialEmployer,
   );
 };
 

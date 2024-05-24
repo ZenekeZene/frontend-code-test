@@ -63,6 +63,7 @@ const Toolbar = observer(({ store }) => {
             disabled={!isAnyBoxSelected}
             type="color"
             value={lastBackgroundColor}
+            aria-label="Change background color of selected boxes"
           />
         </li>
         <li

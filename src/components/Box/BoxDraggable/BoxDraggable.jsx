@@ -30,6 +30,7 @@ const BoxDraggable = React.forwardRef(({ box, children, ...rest }, ref) => {
       role="button"
       className={classNames}
       aria-pressed={isSelected}
+      aria-label="Draggable box"
       style={style}
       onMouseLeave={() => onMouseLeave(box)}
       onMouseOver={() => onMouseOver(box)}

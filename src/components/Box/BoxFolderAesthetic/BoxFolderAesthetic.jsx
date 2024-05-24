@@ -15,6 +15,7 @@ const BoxFolderAesthetic = ({
         backgroundColor: backgroundColor,
         borderColor: darkerBackgroundColor,
       }}
+      aria-label="Folder"
     >
       <svg
         className="folder__ribbon"

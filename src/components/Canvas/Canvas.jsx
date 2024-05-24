@@ -35,10 +35,12 @@ const Canvas = ({ store }) => {
 
   const handleManualSelection = (box) => {
     if (areMultipleBoxesSelected) return;
+    if (!isAlive(box)) return;
     store.selectBox(box);
   };
 
   const handleMouseOver = (box) => {
+    if (!isAlive(box)) return;
     !areMultipleBoxesSelected && setSingleBoxToDrag(box);
     !box.isSelected && box.setHovered(true);
   };
