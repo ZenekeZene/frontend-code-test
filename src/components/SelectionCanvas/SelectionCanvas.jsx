@@ -12,10 +12,10 @@ const SelectionCanvas = ({ boxes, onMouseUp, onMouseMove, onClick, children }) =
       isBoxOverlapping(box.node, boxSelectionToolRef.current),
     );
 
-  const handleMouseUp = (event) => {
+  const handleMouseUp = () => {
     if (!boxSelectionToolRef.current) return;
     const selectedBoxes = calculateSelectedBoxes(boxes);
-    onMouseUp(selectedBoxes, event);
+    onMouseUp(selectedBoxes);
   };
 
   const handleMouseMove = () => {
