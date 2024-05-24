@@ -20,6 +20,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "vitest",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -38,9 +40,11 @@
     ]
   },
   "devDependencies": {
+    "@playwright/test": "^1.44.1",
     "@testing-library/jest-dom": "^6.4.5",
     "@testing-library/react": "^15.0.7",
     "@testing-library/user-event": "^14.5.2",
+    "@types/node": "^20.12.12",
     "prettier": "3.2.5",
     "vitest": "^1.6.0"
   }
