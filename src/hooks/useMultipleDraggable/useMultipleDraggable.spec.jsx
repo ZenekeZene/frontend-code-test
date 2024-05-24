@@ -26,6 +26,7 @@ describe("useMultipleDraggable hook:", () => {
     render(
       <DummyCanvas
         boxes={boxes}
+        allBoxes={boxes}
         dragService={dragService}
         onDragEnd={onDragEnd}
       />,
@@ -42,6 +43,7 @@ describe("useMultipleDraggable hook:", () => {
     render(
       <DummyCanvas
         boxes={boxes}
+        allBoxes={boxes}
         dragService={dragService}
         onDragEnd={onDragEnd}
       />,
@@ -62,6 +64,7 @@ describe("useMultipleDraggable hook:", () => {
     render(
       <DummyCanvas
         boxes={boxes}
+        allBoxes={boxes}
         dragService={dragService}
         onDragEnd={onDragEnd}
       />,
@@ -93,6 +96,7 @@ describe("useMultipleDraggable hook:", () => {
     render(
       <DummyCanvas
         boxes={boxes}
+        allBoxes={boxes}
         dragService={dragService}
         onDragEnd={onDragEnd}
       />,
@@ -120,6 +124,7 @@ describe("useMultipleDraggable hook:", () => {
     render(
       <DummyCanvas
         boxes={boxes}
+        allBoxes={boxes}
         dragService={dragService}
         onDragEnd={onDragEnd}
       />,

@@ -11,8 +11,9 @@ class DragFacade {
     ],
   };
 
-  constructor({ targetElement, move, end }) {
+  constructor({ targetElement, start, move, end }) {
     this.targetElement = targetElement;
+    this.start = start;
     this.move = move;
     this.end = end;
   }
@@ -21,6 +22,7 @@ class DragFacade {
     interact(this.targetElement).draggable({
       ...this.#draggableConfig,
       listeners: {
+        start: this.start,
         move: this.move,
         end: this.end,
       },

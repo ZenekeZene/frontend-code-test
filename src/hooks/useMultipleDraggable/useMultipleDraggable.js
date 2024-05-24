@@ -1,7 +1,7 @@
 import { isAlive } from "mobx-state-tree";
 import React from "react";
 
-const useMultipleDraggable = ({ boxes, dragService, onDragEnd = () => {} }) => {
+const useMultipleDraggable = ({ boxes, allBoxes, dragService, onDragEnd = () => {} }) => {
   const unsets = React.useRef([]);
 
   const dragMoveListener = React.useCallback(
@@ -30,6 +30,13 @@ const useMultipleDraggable = ({ boxes, dragService, onDragEnd = () => {} }) => {
     [onDragEnd],
   );
 
+  const updateZIndex = React.useCallback((box) => {
+    allBoxes.forEach(anotherBox => {
+      anotherBox.node.style.zIndex = 0;
+    });
+    box.node.style.zIndex = allBoxes.length + 1;
+  }, [allBoxes]);
+
   React.useEffect(() => {
     if (!boxes) return;
     if (boxes.length === 0) return;
@@ -42,11 +49,15 @@ const useMultipleDraggable = ({ boxes, dragService, onDragEnd = () => {} }) => {
       node.setAttribute("data-y", box.top);
 
       const listeners = {
+        start: () => {
+          updateZIndex(box);
+        },
         move: (event) => {
-          boxes.forEach(dragMoveListener(event));
+          boxesAlive.forEach(dragMoveListener(event));
         },
         end: () => {
-          boxes.forEach(dragEndListener);
+          updateZIndex(box);
+          boxesAlive.forEach(dragEndListener);
         },
       };
 
@@ -62,7 +73,7 @@ const useMultipleDraggable = ({ boxes, dragService, onDragEnd = () => {} }) => {
     return () => {
       unsets.current.forEach((unset) => unset());
     };
-  }, [unsets, boxes, dragService, dragEndListener, dragMoveListener]);
+  }, [unsets, boxes, dragService, dragEndListener, dragMoveListener, updateZIndex]);
 };
 
 export { useMultipleDraggable };

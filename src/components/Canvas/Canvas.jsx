@@ -24,6 +24,7 @@ const Canvas = ({ store }) => {
   const boxesToDrag = isSingleBoxToDrag ? [singleBoxToDrag] : selectedBoxes;
   useMultipleDraggable({
     boxes: boxesToDrag,
+    allBoxes: store.boxes,
     dragService: DragService,
     onDragEnd,
   });
@@ -46,7 +47,7 @@ const Canvas = ({ store }) => {
   };
 
   const handleMouseLeave = (box) => {
-    !areMultipleBoxesSelected && setSingleBoxToDrag(null);
+    // !areMultipleBoxesSelected && setSingleBoxToDrag(null);
     box.setHovered(false);
   };
 
