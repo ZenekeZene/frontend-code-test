@@ -5,7 +5,7 @@ import {
   defaultFontColor,
 } from "../../constants/colors";
 import { canvasSize } from "../../constants/canvas";
-import { boxSize } from "../../constants/box";
+import boxesConfigByDefault, { boxSize } from "../../constants/box";
 import { getRandomCoordinates } from "../../utils/getRandomCoordinates";
 
 export const createBox = ({ backgroundColor } = { background: null }) => {
@@ -21,4 +21,22 @@ export const createBox = ({ backgroundColor } = { background: null }) => {
     backgroundColor: backgroundColor || randomBackgroundColor,
     ...coordinates,
   });
+};
+
+export const createBoxWithCustomNode = ({ id, left = 0, top = 0 }) => {
+  const node = document.createElement("div");
+  node.id = id;
+  node.getBoundingClientRect = () => ({
+    top,
+    left,
+  });
+  const instance = BoxModel.create({
+    id: uuid(),
+    ...boxesConfigByDefault,
+    left,
+    top,
+    text: '',
+  });
+  instance.setNode(node);
+  return instance;
 };
