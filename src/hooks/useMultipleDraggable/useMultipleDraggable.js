@@ -1,7 +1,12 @@
 import { isAlive } from "mobx-state-tree";
 import React from "react";
 
-const useMultipleDraggable = ({ boxes, allBoxes, dragService, onDragEnd = () => {} }) => {
+const useMultipleDraggable = ({
+  boxes,
+  allBoxes,
+  dragService,
+  onDragEnd = () => {},
+}) => {
   const unsets = React.useRef([]);
 
   const dragMoveListener = React.useCallback(
@@ -30,12 +35,15 @@ const useMultipleDraggable = ({ boxes, allBoxes, dragService, onDragEnd = () => 
     [onDragEnd],
   );
 
-  const updateZIndex = React.useCallback((box) => {
-    allBoxes.forEach(anotherBox => {
-      anotherBox.node.style.zIndex = 0;
-    });
-    box.node.style.zIndex = allBoxes.length + 1;
-  }, [allBoxes]);
+  const updateZIndex = React.useCallback(
+    (box) => {
+      allBoxes.forEach((anotherBox) => {
+        anotherBox.node.style.zIndex = 0;
+      });
+      box.node.style.zIndex = allBoxes.length + 1;
+    },
+    [allBoxes],
+  );
 
   React.useEffect(() => {
     if (!boxes) return;
@@ -73,7 +81,14 @@ const useMultipleDraggable = ({ boxes, allBoxes, dragService, onDragEnd = () => 
     return () => {
       unsets.current.forEach((unset) => unset());
     };
-  }, [unsets, boxes, dragService, dragEndListener, dragMoveListener, updateZIndex]);
+  }, [
+    unsets,
+    boxes,
+    dragService,
+    dragEndListener,
+    dragMoveListener,
+    updateZIndex,
+  ]);
 };
 
 export { useMultipleDraggable };

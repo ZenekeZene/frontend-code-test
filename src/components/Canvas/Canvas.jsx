@@ -3,18 +3,14 @@ import { observer } from "mobx-react";
 import { isAlive } from "mobx-state-tree";
 import { canvasSize } from "../../constants/canvas";
 import { useMultipleDraggable } from "../../hooks/useMultipleDraggable/useMultipleDraggable";
-import { useClickOutside } from "../../hooks/useClickOutside/useClickOutside";
 import { DragService } from "../../services/drag.service";
 import { SelectionCanvas } from "../SelectionCanvas/SelectionCanvas";
 import BoxEditable from "../Box/BoxEditable/BoxEditable";
-import "./Canvas.css";
 
 const Canvas = ({ store }) => {
   const [singleBoxToDrag, setSingleBoxToDrag] = React.useState(null);
   const selectedBoxes = store.getSelectedBoxes();
   const areMultipleBoxesSelected = store.areMultipleBoxesSelected();
-
-  useClickOutside({ onBlur: () => store.unselectAllBoxes() });
 
   const onDragEnd = (box, { x, y }) => {
     box.move(x, y);
@@ -47,7 +43,7 @@ const Canvas = ({ store }) => {
   };
 
   const handleMouseLeave = (box) => {
-    // !areMultipleBoxesSelected && setSingleBoxToDrag(null);
+    !areMultipleBoxesSelected && setSingleBoxToDrag(null);
     box.setHovered(false);
   };
 
@@ -63,6 +59,7 @@ const Canvas = ({ store }) => {
     <div
       className="canva"
       style={{ width: canvasSize.width, height: canvasSize.height }}
+      onDoubleClick={store.unselectAllBoxes}
     >
       <SelectionCanvas
         boxes={store.boxes}

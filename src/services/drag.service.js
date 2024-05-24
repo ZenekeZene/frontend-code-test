@@ -5,7 +5,12 @@ const DragService = ({ targetElement, start, move, end }) => {
     const delta = { x: event.dx, y: event.dy };
     move(event, delta);
   };
-  const dragFacade = new DragFacade({ targetElement, start, move: proxiedMove, end });
+  const dragFacade = new DragFacade({
+    targetElement,
+    start,
+    move: proxiedMove,
+    end,
+  });
 
   return {
     init: () => {

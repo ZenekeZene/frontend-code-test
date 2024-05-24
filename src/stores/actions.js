@@ -54,7 +54,10 @@ export const actions = (self) => {
       });
     },
     unselectAllBoxes: () => {
-      self.boxes.forEach((box) => box.unselect());
+      self.boxes.forEach((box) => {
+        box.unselect();
+        box.setHovered(false);
+      });
     },
     setIsEditingColorOfSelectedBoxes: (value) => {
       self

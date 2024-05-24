@@ -35,7 +35,7 @@ export const createBoxWithCustomNode = ({ id, left = 0, top = 0 }) => {
     ...boxesConfigByDefault,
     left,
     top,
-    text: '',
+    text: "",
   });
   instance.setNode(node);
   return instance;

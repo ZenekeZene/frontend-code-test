@@ -57,7 +57,10 @@ describe("useMultipleDraggable hook:", () => {
 
   test(`Given two boxes at the same position and a drag service,
 		the boxes are draggable simultaneously`, () => {
-    const boxes = [createBoxWithCustomNode({ id: "foo" }), createBoxWithCustomNode({ id: "bar" })];
+    const boxes = [
+      createBoxWithCustomNode({ id: "foo" }),
+      createBoxWithCustomNode({ id: "bar" }),
+    ];
     const dragService = DragServiceMock;
     const onDragEnd = vi.fn();
 

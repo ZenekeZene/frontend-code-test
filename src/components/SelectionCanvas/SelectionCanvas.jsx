@@ -1,49 +1,46 @@
 import React from "react";
+import { isBoxOverlapping } from "../../utils/isBoxOverlapping";
 import { BoxSelectionTool } from "../Box/BoxSelectionTool/BoxSelectionTool";
 import { useSelectionToolCoordinates } from "../../hooks/useSelectionToolCoordinates/useSelectionToolCoordinates";
 import "./SelectionCanvas.css";
 
-const isBoxOverlappingWithOtherBox = ({ start, end }, box) => {
-  const minX = Math.min(start.x, end.x);
-  const maxX = Math.max(start.x, end.x);
-  const minY = Math.min(start.y, end.y);
-  const maxY = Math.max(start.y, end.y);
-
-  return box.x >= minX && box.x <= maxX && box.y >= minY && box.y <= maxY;
-};
-
-const calculateSelectedBoxes = (boxes, coordinates) => {
-  const selectedBoxes = boxes.filter((box) => {
-    const { left, top } = box.node.getBoundingClientRect();
-    const boxCoordinates = { x: left, y: top };
-    return isBoxOverlappingWithOtherBox(coordinates, boxCoordinates);
-  });
-  return selectedBoxes;
-};
-
-const SelectionCanvas = ({ boxes, onMouseUp, onMouseMove, children }) => {
+const SelectionCanvas = ({ boxes, onMouseUp, onMouseMove, onClick, children }) => {
   const boxSelectionToolRef = React.useRef(null);
 
-  const handleMouseUp = (coordinates) => {
-    const selectedBoxes = calculateSelectedBoxes(boxes, coordinates);
-    onMouseUp(selectedBoxes);
+  const calculateSelectedBoxes = (boxes) =>
+    boxes.filter((box) =>
+      isBoxOverlapping(box.node, boxSelectionToolRef.current),
+    );
+
+  const handleMouseUp = (event) => {
+    if (!boxSelectionToolRef.current) return;
+    const selectedBoxes = calculateSelectedBoxes(boxes);
+    onMouseUp(selectedBoxes, event);
   };
 
-  const handleMouseMove = (coordinates) => {
-    const hoveredBoxes = calculateSelectedBoxes(boxes, coordinates);
+  const handleMouseMove = () => {
+    if (!boxSelectionToolRef.current) return;
+    const hoveredBoxes = calculateSelectedBoxes(boxes);
     onMouseMove(hoveredBoxes);
   };
 
-  const { isSelecting, coordinates, ...events } = useSelectionToolCoordinates({
-    handleMouseMove,
-    handleMouseUp,
-  });
+  const { isSelecting, coordinates, ...events } = useSelectionToolCoordinates(
+    {
+      handleMouseMove,
+      handleMouseUp,
+    },
+  );
 
   return (
-    <div role="group" className="selection-canvas" {...events}>
+    <div
+      role="group"
+      className="selection-canvas"
+      onClick={onClick}
+      {...events}
+    >
       {isSelecting && (
         <BoxSelectionTool
-          boxSelectionToolRef={boxSelectionToolRef}
+          ref={boxSelectionToolRef}
           startCoordinates={coordinates.start}
           endCoordinates={coordinates.end}
         />
