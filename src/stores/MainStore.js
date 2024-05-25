@@ -7,6 +7,9 @@ const MainStore = types
   .model("MainStore", {
     boxes: types.array(BoxModel),
   })
+  .volatile(() => ({
+    isMultipleBoxesSelectedEnabled: false,
+  }))
   .actions(actions)
   .views(views);
 

@@ -35,7 +35,7 @@ export const actions = (self) => {
     removeAllBoxes: () => {
       self.boxes.clear();
     },
-    selectBox: (box) => {
+    selectSingleBox: (box) => {
       self.boxes.forEach((b) => {
         if (b.id === box.id) {
           b.select();
@@ -43,6 +43,9 @@ export const actions = (self) => {
           b.unselect();
         }
       });
+    },
+    selectBox: (box) => {
+      box.select();
     },
     selectBoxes: (boxes) => {
       self.boxes.forEach((box) => {
@@ -57,6 +60,7 @@ export const actions = (self) => {
       self.boxes.forEach((box) => {
         box.unselect();
         box.setHovered(false);
+        box.setIsEditingText(false);
       });
     },
     setIsEditingColorOfSelectedBoxes: (value) => {
@@ -76,6 +80,9 @@ export const actions = (self) => {
           box.setIsEditingBackgroundColor(true);
         box.changeCurrentBackgroundColor(backgroundColor);
       });
+    },
+    setMultipleBoxesSelectedEnabled: (value) => {
+      self.isMultipleBoxesSelectedEnabled = value;
     },
   };
 };

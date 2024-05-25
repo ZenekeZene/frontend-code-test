@@ -4,7 +4,7 @@ import { BoxSelectionTool } from "../Box/BoxSelectionTool/BoxSelectionTool";
 import { useSelectionToolCoordinates } from "../../hooks/useSelectionToolCoordinates/useSelectionToolCoordinates";
 import "./SelectionCanvas.css";
 
-const SelectionCanvas = ({ boxes, onMouseUp, onMouseMove, onClick, children }) => {
+const SelectionCanvas = React.forwardRef(({ boxes, onMouseUp, onMouseMove, onClick, children }, ref) => {
   const boxSelectionToolRef = React.useRef(null);
 
   const calculateSelectedBoxes = (boxes) =>
@@ -33,6 +33,7 @@ const SelectionCanvas = ({ boxes, onMouseUp, onMouseMove, onClick, children }) =
 
   return (
     <div
+      ref={ref}
       role="group"
       className="selection-canvas"
       onClick={onClick}
@@ -48,6 +49,6 @@ const SelectionCanvas = ({ boxes, onMouseUp, onMouseMove, onClick, children }) =
       {children}
     </div>
   );
-};
+});
 
 export { SelectionCanvas };

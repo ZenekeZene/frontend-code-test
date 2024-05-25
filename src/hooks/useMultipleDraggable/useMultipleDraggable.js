@@ -1,5 +1,5 @@
-import { isAlive } from "mobx-state-tree";
 import React from "react";
+import { isAlive } from "mobx-state-tree";
 
 const useMultipleDraggable = ({
   boxes,

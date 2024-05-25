@@ -2,22 +2,26 @@ import React from "react";
 import { observer } from "mobx-react";
 import { isAlive } from "mobx-state-tree";
 import { canvasSize } from "../../constants/canvas";
+import { useKeyboardShortcuts } from "./useKeyboardShortcuts";
 import { useMultipleDraggable } from "../../hooks/useMultipleDraggable/useMultipleDraggable";
 import { DragService } from "../../services/drag.service";
 import { SelectionCanvas } from "../SelectionCanvas/SelectionCanvas";
 import BoxEditable from "../Box/BoxEditable/BoxEditable";
 
 const Canvas = ({ store }) => {
+  const selectionCanvasRef = React.useRef();
   const [singleBoxToDrag, setSingleBoxToDrag] = React.useState(null);
   const selectedBoxes = store.getSelectedBoxes();
   const areMultipleBoxesSelected = store.areMultipleBoxesSelected();
+  const isSingleBoxToDrag = singleBoxToDrag && !areMultipleBoxesSelected;
+  const boxesToDrag = isSingleBoxToDrag ? [singleBoxToDrag] : selectedBoxes;
+
+  useKeyboardShortcuts({ store });
 
   const onDragEnd = (box, { x, y }) => {
     box.move(x, y);
   };
 
-  const isSingleBoxToDrag = singleBoxToDrag && !areMultipleBoxesSelected;
-  const boxesToDrag = isSingleBoxToDrag ? [singleBoxToDrag] : selectedBoxes;
   useMultipleDraggable({
     boxes: boxesToDrag,
     allBoxes: store.boxes,
@@ -31,9 +35,12 @@ const Canvas = ({ store }) => {
   };
 
   const handleManualSelection = (box) => {
-    if (areMultipleBoxesSelected) return;
     if (!isAlive(box)) return;
-    store.selectBox(box);
+    if (store.isMultipleBoxesSelectedEnabled) {
+      store.selectBox(box);
+    } else if (!areMultipleBoxesSelected) {
+      store.selectSingleBox(box);
+    }
   };
 
   const handleMouseOver = (box) => {
@@ -59,9 +66,14 @@ const Canvas = ({ store }) => {
     <div
       className="canva"
       style={{ width: canvasSize.width, height: canvasSize.height }}
-      onDoubleClick={store.unselectAllBoxes}
+      onDoubleClick={(event) => {
+        const targets = [event.currentTarget, selectionCanvasRef.current];
+        if (!targets.includes(event.target)) return;
+        store.unselectAllBoxes();
+      }}
     >
       <SelectionCanvas
+        ref={selectionCanvasRef}
         boxes={store.boxes}
         onMouseUp={store.selectBoxes}
         onMouseMove={handleMouseMove}
