@@ -104,11 +104,11 @@ Here are some related front-end projects:
 
 [Do the right thing](https://labs.zenekezene.com/).
 
-[Montando en bicicleta](bike.zenekezene.com).
+[Montando en bicicleta](https://bike.zenekezene.com).
 
 [Picasso, editor de dibujo sencillo](https://picasso2022.netlify.app/).
 
-[Despierta a Sleepy Spider antes de que empiece la BilboStack!](https://sleepy.zenekezene.com/).
+[Despierta a Sleepy Spider antes de que empiece la BilboStack!](https://bilbostack.zenekezene.com/).
 
 [Qué aprendí creando una araña](https://zeneke.notion.site/Sleepy-en-Bilbostack-2024-Post-Mortem-5ee0676b122441d38949e8990b703b11).
 
