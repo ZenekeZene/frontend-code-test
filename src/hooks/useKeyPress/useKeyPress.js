@@ -15,7 +15,7 @@ const useKeyPress = ({ key, onDown, onUp }) => {
       setKeyPressed(false);
 			onUp?.();
     }
-  }, [key]);
+  }, [key, onUp]);
 
   React.useEffect(() => {
     window.addEventListener("keydown", downHandler);
