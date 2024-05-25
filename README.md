@@ -116,7 +116,7 @@ Here are some related front-end projects:
 
 <img src="./public/sleepy.png" width="400">
 
-## Contacto
+## Contact
 Twitter: [@zenekezene](https://twitter.com/zenekezene).
 
 Instagram: [@zenekezene](https://www.instagram.com/zenekezene/).
