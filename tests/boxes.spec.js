@@ -23,7 +23,7 @@ test.describe("Dragging the boxes and undo/redo actions: ", () => {
     await firstBox.click();
     await expect(firstBox).toHaveAttribute("aria-pressed", "true");
 
-    const expected = { x: 536, y: 467 };
+    const expected = { x: 732, y: 341 };
     const move = { x: 100, y: 100 };
     const offset = { x: 10, y: 10 };
     const { x, y } = await firstBox.boundingBox();

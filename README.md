@@ -1,3 +1,7 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/788ce94f-6177-4f99-a8e3-5a7139c0c558/deploy-status)](https://app.netlify.com/sites/genially-test/deploys)
+[![Unit tests](https://github.com/ZenekeZene/frontend-code-test/actions/workflows/test-unit.yml/badge.svg)](https://github.com/ZenekeZene/frontend-code-test/actions/workflows/test-unit.yml)
+[![Playwright Tests](https://github.com/ZenekeZene/frontend-code-test/actions/workflows/playwright.yml/badge.svg)](https://github.com/ZenekeZene/frontend-code-test/actions/workflows/playwright.yml)
+
 # Solution to the Genially Test
 
 The test includes the instructions in its [original README](./TEST_REQUIREMENTS.md).
