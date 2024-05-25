@@ -1,0 +1,24 @@
+name: Unit tests
+
+on:
+  workflow_dispatch:
+
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repositorio
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: |
+          npm install
+
+      - name: Run unit tests
+        run: |
+          npm run test
