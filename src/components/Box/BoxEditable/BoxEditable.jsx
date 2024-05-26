@@ -22,15 +22,18 @@ const Box = React.forwardRef((props, ref) => {
   };
 
   return (
-    <BoxDraggable {...props} ref={localRef} onDoubleClick={handleDoubleClick}>
+    <BoxDraggable {...props}
+      ref={localRef}
+      onDoubleClick={handleDoubleClick}
+    >
       <BoxFolderAesthetic
         height={props.height}
+        darkerBackgroundColor={box.darkerBackgroundColor}
         backgroundColor={
           box.isEditingBackgroundColor
             ? box.currentBackgroundColor
             : box.backgroundColor
         }
-        darkerBackgroundColor={box.darkerBackgroundColor}
       >
         {!props.areMultipleBoxesSelected && (
           <BoxTools box={box} onRemove={props.onRemove} />

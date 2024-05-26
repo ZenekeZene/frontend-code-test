@@ -2,7 +2,7 @@ import React from "react";
 import "./BoxSelectionTool.css";
 
 const BoxSelectionTool = React.forwardRef(
-  ({ startCoordinates, endCoordinates }, ref) => {
+  ({ isSelecting, startCoordinates, endCoordinates }, ref) => {
     if (!startCoordinates || !endCoordinates) return null;
     if (
       startCoordinates.x === endCoordinates.x &&
@@ -24,7 +24,7 @@ const BoxSelectionTool = React.forwardRef(
       <div
         ref={ref}
         style={style}
-        className="box-selection-tool"
+        className={`box-selection-tool ${isSelecting ? '--is-visible' : ''}`}
         aria-label="box selection tool"
       ></div>
     );

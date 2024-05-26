@@ -1,29 +1,29 @@
 .folder__paper {
   position: absolute;
+  z-index: 3;
   top: -0.3rem;
   width: 90%;
   height: 1rem;
   background-color: white;
+  transition: transform 0.2s ease-in-out;
 }
 
 .folder__front {
   position: relative;
-  z-index: 1;
+  z-index: 4;
   width: 100%;
   height: auto;
   border-bottom-left-radius: 0.25rem;
   border-bottom-right-radius: 0.25rem;
   border-bottom-width: 4px;
   border-bottom-style: solid;
-  box-shadow: 0 0 15px 3px rgba(0, 0, 0, 0.15);
-  border-radius: 0.25rem;
 }
 
 .folder__back {
   position: absolute;
   top: -0.6rem;
   left: 0;
-  z-index: -1;
+  z-index: 2;
   width: 96%;
   height: 100%;
 }
@@ -41,14 +41,18 @@
   position: absolute;
   top: -1.5rem;
   left: 0;
-  z-index: 1;
+  z-index: 2;
   height: 1rem;
 }
 
 .folder__ribbon,
 .folder__ribbon-back {
-  fill-rule: "evenodd";
-  clip-rule: "evenodd";
-  stroke-linejoin: "round";
-  stroke-miterlimit: "2";
+  fill-rule: evenodd;
+  clip-rule: evenodd;
+  stroke-linejoin: round;
+  stroke-miterlimit: 2;
+}
+
+.box.--is-selected .folder__paper {
+  transform: rotate(3deg) translateY(-8px);
 }

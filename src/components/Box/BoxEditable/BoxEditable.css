@@ -1,15 +1,24 @@
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
 .box {
   position: absolute;
+  opacity: 1;
   display: flex;
   justify-content: center;
   max-width: 8rem;
   height: auto;
   user-select: none;
-  box-shadow: 0 0 15px 3px rgba(0, 0, 0, 0.15);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   border-radius: 0.25rem;
+  animation: fadeIn 0.2s ease-in-out;
 }
 
-.box::after {
+.box::after,
+.box__animated-border {
   content: "";
   opacity: 0;
   position: absolute;
@@ -19,12 +28,43 @@
   height: calc(100% + 3.5rem);
   background: rgb(0 0 0 / 6%);
   border-radius: 0.5rem;
+  transition: opacity 0.2s ease-in-out;
 }
 
-.box.--is-selected:after {
+.box:after {
+  -webkit-backface-visibility: hidden;
+  -webkit-perspective: 1000;
+  -webkit-transform: translate3d(0,0,0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000;
+  transform: translate3d(0,0,0);
+  transform: translateZ(0);
+  backdrop-filter: blur(1.8px);
+  -webkit-backdrop-filter: blur(1.8px);
+}
+
+.box.--is-selected {
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 60px 40px -7px;
+}
+
+.box.--is-selected:after,
+.box.--is-hovered:after,
+.box.--is-selected .box__animated-border,
+.box.--is-hovered .box__animated-border {
   opacity: 1;
 }
 
-.box.--is-hovered:after {
-  opacity: 1;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.fadeIn {
+  animation-name: fadeIn;
 }
