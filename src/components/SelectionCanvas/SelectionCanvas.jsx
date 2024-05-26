@@ -4,12 +4,14 @@ import { applyDelay } from "../../utils/applyDelay";
 import { isBoxOverlapping } from "../../utils/isBoxOverlapping";
 import { BoxSelectionTool } from "../Box/BoxSelectionTool/BoxSelectionTool";
 import { useSelectionToolCoordinates } from "../../hooks/useSelectionToolCoordinates/useSelectionToolCoordinates";
+import { useDelayUnmount } from "../../hooks/useDelayUnmount/useDelayUnmount";
 import "./SelectionCanvas.css";
 
 const SelectionCanvas = React.forwardRef(({ store, onMouseUp, onMouseMove, children }, ref) => {
   const { boxes } = store;
   const isAnyBoxSelected = store.isAnyBoxSelected();
   const boxSelectionToolRef = React.useRef(null);
+  const shouldRenderBoxSelection = useDelayUnmount(store.isSelecting, 200);
 
   const calculateSelectedBoxes = (boxes) =>
     boxes.filter((box) =>
@@ -49,9 +51,10 @@ const SelectionCanvas = React.forwardRef(({ store, onMouseUp, onMouseMove, child
       className="selection-canvas"
       {...events}
     >
-      {store.isSelecting && (
+      {shouldRenderBoxSelection && (
         <BoxSelectionTool
           ref={boxSelectionToolRef}
+          isSelecting={store.isSelecting}
           startCoordinates={coordinates.start}
           endCoordinates={coordinates.end}
         />
