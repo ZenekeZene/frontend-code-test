@@ -37,12 +37,12 @@ const Canvas = ({ store }) => {
   };
 
   const handleManualSelection = (box) => {
-    updateZIndexOrder({ boxes, boxToRaise: box });
     if (!isAlive(box)) return;
     if (store.isMultipleBoxesSelectedEnabled) {
       store.selectBox(box);
     } else if (!areMultipleBoxesSelected) {
       store.selectSingleBox(box);
+      updateZIndexOrder({ boxes, boxToRaise: box });
     }
   };
 
