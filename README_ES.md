@@ -27,13 +27,7 @@ Lanzar el proyecto en modo desarrollo:
 Lanzar la batería de tests:
 
 	npm run test
-
-Lanzar la batería de tests e2e:
-
 	npm run test:e2e
-
-Lanzar la batería de tests e2e en modo visual:
-
 	npm run test:e2e:ui
 
 Crear una build:
@@ -72,7 +66,13 @@ He querido presentar una interfaz lo más minimalista posible, dándole un prop�
 He querido trabajar con CSS Vanilla, y no usar pre-procesadores como [SASS](https://sass-lang.com/), o post-procesador como [PostCSS](https://postcss.org/), creo que era suficiente. Como metodología, he usado BEM. Creo que lo importante es [mantener una baja curva de especificidad CSS](https://csswizardry.com/2014/10/the-specificity-graph/) a lo largo de las hojas de estilos.
 
 ### ¿Qué hay de los tests?
-He intentado testar aquellos elementos que tenían sentido testarlos como Component Testing o unitarios de componentes. Estos son cajas negras de las que uso su interfaz pública para aseverar comportamientos, no detalles de implementación. Siempre desde la perspectiva del usuario, por lo que he añadido A11y para recuperar elementos. Los componentes más complejos son testados mediante Playwright. También hay testing implicito, como en el caso de los servicios. Los hooks son testados simulando ser montados en componentes "tontos". No he practicado TDD (ni inside-out, ni outside-in).
+- He intentado testar aquellos elementos que tenían sentido testarlos como Component Testing o unitarios de componentes. Estos son cajas negras de las que uso su interfaz pública para aseverar comportamientos, no detalles de implementación.
+- Casi siempre desde la perspectiva del usuario, por lo que he añadido A11y para recuperar elementos.
+- Los componentes más complejos son testados mediante Playwright.
+- También hay testing implicito con tests de colaboradores, como en el caso de los servicios.
+- Los hooks son testados simulando ser montados en componentes "tontos".
+- No he practicado TDD (ni inside-out, ni outside-in).
+- He añadido los tests a Github con Github Actions.
 
 ---
 

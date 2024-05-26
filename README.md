@@ -65,7 +65,13 @@ I wanted to present a minimalist interface, with a folder creator purpose. I als
 I chose to work with vanilla CSS, avoiding preprocessors like [SASS](https://sass-lang.com/), or post-processors like [PostCSS](https://postcss.org/). I think it was sufficient. For methodology, I used [BEM](https://getbem.com/). I believe it's important to [mantain a low CSS specificity curve](https://csswizardry.com/2014/10/the-specificity-graph/) throughout the style sheets.
 
 ### What about the tests?
-I tried to test elements that made sense to test, such as component testing or unit tests for components. These are black boxes from which I use their public interface to assert behaviors, not implementation details. Always from the user's perspective, so I added A11y to retrieve elements. The more complex components are tested using Playwright. There is also implicit testing, such as for services. Hooks are tested by simulating mounting them in "dumb" components. I did not practice TDD (neither inside-out nor outside-in).
+- I tried to test elements that made sense to test, such as component testing or unit tests for components. These are black boxes from which I use their public interface to assert behaviors, not implementation details.
+- Always from the user's perspective, so I added A11y to retrieve elements.
+- The more complex components are tested using Playwright.
+- There is also implicit testing, such as for services.
+- Hooks are tested by simulating mounting them in "dumb" components.
+- I did not practice TDD (neither inside-out nor outside-in).
+- I have integrated the tests in Github through Github Actions.
 
 ---
 
