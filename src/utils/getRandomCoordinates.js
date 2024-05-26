@@ -3,6 +3,11 @@ const fullScreen = {
   height: "100%",
 };
 
+const securityOffsetInPixels = {
+  horizontal: 200,
+  vertical: 200,
+};
+
 const isFullScreen = (canvasSize) => {
   return (
     canvasSize.width === fullScreen.width ||
@@ -18,12 +23,12 @@ const getRandomCoordinates = (canvasSize, boxSize) => {
     width = window.innerWidth;
     height = window.innerHeight;
   }
-  const randomX = Math.random() * (width - boxSize.width);
-  const randomY = Math.random() * (height - boxSize.height);
+  const randomX = Math.random() * (width / 2 - boxSize.width) ;
+  const randomY = Math.random() * (height / 2 - boxSize.height);
 
   const coordinates = {
-    left: randomX,
-    top: randomY,
+    left: securityOffsetInPixels.horizontal + randomX,
+    top: securityOffsetInPixels.vertical + randomY,
   };
   return coordinates;
 };
