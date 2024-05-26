@@ -86,7 +86,7 @@ const Canvas = ({ store }) => {
         {store.boxes.map((box, index) => (
           <BoxEditable
             ref={ref(box)}
-            key={index}
+            key={box.id}
             box={box}
             onMouseOver={handleMouseOver}
             onMouseLeave={handleMouseLeave}

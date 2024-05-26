@@ -17,8 +17,7 @@
   animation: fadeIn 0.2s ease-in-out;
 }
 
-.box::after,
-.box__animated-border {
+.box::after {
   content: "";
   opacity: 0;
   position: absolute;
@@ -29,9 +28,6 @@
   background: rgb(0 0 0 / 6%);
   border-radius: 0.5rem;
   transition: opacity 0.2s ease-in-out;
-}
-
-.box:after {
   -webkit-backface-visibility: hidden;
   -webkit-perspective: 1000;
   -webkit-transform: translate3d(0,0,0);
@@ -49,9 +45,7 @@
 }
 
 .box.--is-selected:after,
-.box.--is-hovered:after,
-.box.--is-selected .box__animated-border,
-.box.--is-hovered .box__animated-border {
+.box.--is-hovered:after {
   opacity: 1;
 }
 
