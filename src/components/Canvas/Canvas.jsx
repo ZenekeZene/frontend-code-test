@@ -23,7 +23,7 @@ const Canvas = ({ store }) => {
   };
 
   useMultipleDraggable({
-    boxes: boxesToDrag,
+    boxesToDrag: boxesToDrag,
     allBoxes: store.boxes,
     dragService: DragService,
     onDragEnd,

@@ -19,14 +19,14 @@ const DummyCanvas = (props) => {
 describe("useMultipleDraggable hook:", () => {
   test(`Given zero boxes and a drag service,
 		the hook does nothing`, () => {
-    const boxes = [];
+    const boxesToDrag = [];
     const dragService = DragServiceMock;
     const onDragEnd = vi.fn();
 
     render(
       <DummyCanvas
-        boxes={boxes}
-        allBoxes={boxes}
+        boxesToDrag={boxesToDrag}
+        allBoxes={boxesToDrag}
         dragService={dragService}
         onDragEnd={onDragEnd}
       />,
@@ -36,20 +36,20 @@ describe("useMultipleDraggable hook:", () => {
   });
 
   test(`Given one box and a drag service, the box is draggable`, () => {
-    const boxes = [createBoxWithCustomNode({ id: "foo" })];
+    const boxesToDrag = [createBoxWithCustomNode({ id: "foo" })];
     const dragService = DragServiceMock;
     const onDragEnd = vi.fn();
 
     render(
       <DummyCanvas
-        boxes={boxes}
-        allBoxes={boxes}
+        boxesToDrag={boxesToDrag}
+        allBoxes={boxesToDrag}
         dragService={dragService}
         onDragEnd={onDragEnd}
       />,
     );
 
-    const boxElement = boxes[0].node;
+    const boxElement = boxesToDrag[0].node;
     simulateSelection(boxElement, { x: 100, y: 150 });
 
     expect(boxElement.style.transform).toBe("translate(100px, 150px)");
@@ -57,7 +57,7 @@ describe("useMultipleDraggable hook:", () => {
 
   test(`Given two boxes at the same position and a drag service,
 		the boxes are draggable simultaneously`, () => {
-    const boxes = [
+    const boxesToDrag = [
       createBoxWithCustomNode({ id: "foo" }),
       createBoxWithCustomNode({ id: "bar" }),
     ];
@@ -66,15 +66,15 @@ describe("useMultipleDraggable hook:", () => {
 
     render(
       <DummyCanvas
-        boxes={boxes}
-        allBoxes={boxes}
+        boxesToDrag={boxesToDrag}
+        allBoxes={boxesToDrag}
         dragService={dragService}
         onDragEnd={onDragEnd}
       />,
     );
 
-    const [boxElement1, boxElement2] = boxes;
-    const indifferentBoxElementForDragging = boxes[1].node;
+    const [boxElement1, boxElement2] = boxesToDrag;
+    const indifferentBoxElementForDragging = boxesToDrag[1].node;
     simulateSelection(indifferentBoxElementForDragging, { x: 100, y: 150 });
 
     expect(boxElement1.node.style.transform).toBe("translate(100px, 150px)");
@@ -89,7 +89,7 @@ describe("useMultipleDraggable hook:", () => {
   test(`Given two boxes at different starting points and a drag service,
 		the boxes are draggable simultaneously with relation
 		of their starting points`, () => {
-    const boxes = [
+    const boxesToDrag = [
       createBoxWithCustomNode({ id: "foo", top: 0, left: 0 }),
       createBoxWithCustomNode({ id: "bar", top: 100, left: 200 }),
     ];
@@ -98,24 +98,24 @@ describe("useMultipleDraggable hook:", () => {
 
     render(
       <DummyCanvas
-        boxes={boxes}
-        allBoxes={boxes}
+        boxesToDrag={boxesToDrag}
+        allBoxes={boxesToDrag}
         dragService={dragService}
         onDragEnd={onDragEnd}
       />,
     );
 
-    const indifferentBoxElementForDragging = boxes[0].node;
+    const indifferentBoxElementForDragging = boxesToDrag[0].node;
     simulateSelection(indifferentBoxElementForDragging, { x: 100, y: 150 });
 
-    expect(boxes[0].node.style.transform).toBe("translate(100px, 150px)");
-    expect(boxes[1].node.style.transform).toBe("translate(300px, 250px)");
+    expect(boxesToDrag[0].node.style.transform).toBe("translate(100px, 150px)");
+    expect(boxesToDrag[1].node.style.transform).toBe("translate(300px, 250px)");
   });
 
   test(`Given four boxes at different starting points and a drag service
 		and a drag end event callback, this callback is called four times
 		when the dragging ends with their corresponding final coordinates as payload`, () => {
-    const boxes = [
+    const boxesToDrag = [
       createBoxWithCustomNode({ id: "foo", top: 0, left: 0 }),
       createBoxWithCustomNode({ id: "bar", top: 100, left: 200 }),
       createBoxWithCustomNode({ id: "baz", top: 200, left: 400 }),
@@ -126,21 +126,21 @@ describe("useMultipleDraggable hook:", () => {
 
     render(
       <DummyCanvas
-        boxes={boxes}
-        allBoxes={boxes}
+        boxesToDrag={boxesToDrag}
+        allBoxes={boxesToDrag}
         dragService={dragService}
         onDragEnd={onDragEnd}
       />,
     );
 
-    const indifferentBoxElementForDragging = boxes[0].node;
+    const indifferentBoxElementForDragging = boxesToDrag[0].node;
 
     simulateSelection(indifferentBoxElementForDragging, { x: 100, y: 150 });
 
     expect(onDragEnd).toHaveBeenCalledTimes(4);
-    expect(onDragEnd).toHaveBeenNthCalledWith(1, boxes[0], { x: 100, y: 150 });
-    expect(onDragEnd).toHaveBeenNthCalledWith(2, boxes[1], { x: 300, y: 250 });
-    expect(onDragEnd).toHaveBeenNthCalledWith(3, boxes[2], { x: 500, y: 350 });
-    expect(onDragEnd).toHaveBeenNthCalledWith(4, boxes[3], { x: 700, y: 450 });
+    expect(onDragEnd).toHaveBeenNthCalledWith(1, boxesToDrag[0], { x: 100, y: 150 });
+    expect(onDragEnd).toHaveBeenNthCalledWith(2, boxesToDrag[1], { x: 300, y: 250 });
+    expect(onDragEnd).toHaveBeenNthCalledWith(3, boxesToDrag[2], { x: 500, y: 350 });
+    expect(onDragEnd).toHaveBeenNthCalledWith(4, boxesToDrag[3], { x: 700, y: 450 });
   });
 });
