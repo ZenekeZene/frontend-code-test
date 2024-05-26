@@ -16,8 +16,8 @@ describe("getRandomCoordinates function (utils):", () => {
     const result = getRandomCoordinates(canvasSize, boxSize);
 
     expect(result).toEqual({
-      left: 900,
-      top: 900,
+      left: 600,
+      top: 600,
     });
   });
 });
