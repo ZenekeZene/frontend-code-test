@@ -95,7 +95,7 @@ He intentado testar aquellos elementos que tenían sentido testarlos como Compon
 	- Borrar y cambiar el color de fondo de la caja.
 - [✅] **El contador de cajas es visual, no númerico**. Estas cajas se marcan como seleccionadas si seleccionamos sus versiones grandes, y viceversa.
 - [✅] He creado una **herramienta de selección** para seleccionar varias cajas a la vez.
-- [✅] Si tenemos una caja o varias cajas a la vez, podemos deseleccionarlas haciendo doble click en el lienzo.
+- [✅] Si tenemos una caja o varias cajas a la vez, podemos deseleccionarlas haciendo click en el lienzo.
 
 ---
 

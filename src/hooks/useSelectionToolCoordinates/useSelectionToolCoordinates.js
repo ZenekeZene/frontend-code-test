@@ -2,8 +2,8 @@ import React from "react";
 
 const coordinatesByDefault = { x: 0, y: 0 };
 
-const useSelectionToolCoordinates = ({ handleMouseMove, handleMouseUp }) => {
-  const [isSelecting, setIsSelecting] = React.useState(false);
+const useSelectionToolCoordinates = ({  isAnyBoxSelected, handleMouseDown, handleMouseMove, handleMouseUp }) => {
+  const hasStarted = React.useRef(false);
   const [startCoordinates, setStartCoordinates] =
     React.useState(coordinatesByDefault);
   const [endCoordinates, setEndCoordinates] =
@@ -12,16 +12,17 @@ const useSelectionToolCoordinates = ({ handleMouseMove, handleMouseUp }) => {
   const coordinates = { start: startCoordinates, end: endCoordinates };
 
   const onMouseDown = (event) => {
-    if (isSelecting) return;
+    if (isAnyBoxSelected || hasStarted.current) return;
     if (event.target !== event.currentTarget) return;
-    setIsSelecting(true);
-    const { clientX, clientY } = event;
-    setStartCoordinates({ x: clientX, y: clientY });
-    setEndCoordinates({ x: clientX, y: clientY });
+    hasStarted.current = true;
+    const { clientX: x, clientY: y } = event;
+    setStartCoordinates({ x, y });
+    setEndCoordinates({ x, y });
+    handleMouseDown(event);
   };
 
   const onMouseMove = (event) => {
-    if (!isSelecting) return;
+    if (!hasStarted.current) return;
     const { clientX, clientY } = event;
     const movedCoordinates = { x: Math.abs(clientX), y: Math.abs(clientY) };
     setEndCoordinates(movedCoordinates);
@@ -29,13 +30,11 @@ const useSelectionToolCoordinates = ({ handleMouseMove, handleMouseUp }) => {
   };
 
   const onMouseUp = (event) => {
-    if (!isSelecting) return;
-    setIsSelecting(false);
     handleMouseUp(event);
+    hasStarted.current = false;
   };
 
   return {
-    isSelecting,
     coordinates,
     onMouseDown,
     onMouseMove,

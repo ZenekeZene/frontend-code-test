@@ -45,8 +45,9 @@ const Canvas = ({ store }) => {
 
   const handleMouseOver = (box) => {
     if (!isAlive(box)) return;
-    !areMultipleBoxesSelected && setSingleBoxToDrag(box);
-    !box.isSelected && box.setHovered(true);
+    if (areMultipleBoxesSelected) return;
+    setSingleBoxToDrag(box);
+    box.setHovered(true);
   };
 
   const handleMouseLeave = (box) => {
@@ -66,7 +67,8 @@ const Canvas = ({ store }) => {
     <div
       className="canva"
       style={{ width: canvasSize.width, height: canvasSize.height }}
-      onDoubleClick={(event) => {
+      onClickCapture={(event) => {
+        if (store.isSelecting) return;
         const targets = [event.currentTarget, selectionCanvasRef.current];
         if (!targets.includes(event.target)) return;
         store.unselectAllBoxes();
@@ -74,7 +76,7 @@ const Canvas = ({ store }) => {
     >
       <SelectionCanvas
         ref={selectionCanvasRef}
-        boxes={store.boxes}
+        store={store}
         onMouseUp={store.selectBoxes}
         onMouseMove={handleMouseMove}
       >

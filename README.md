@@ -88,7 +88,7 @@ I tried to test elements that made sense to test, such as component testing or u
 	- Delete and change the box's background color.
 - [✅] **The box counter is visual, not numeric**. These boxes are marked as selected if we select their large versions, and vice versa.
 - [✅] I created a **selection tool** to select multiple boxes at once.
-- [✅] If we have one or more boxes selected, we can deselect them by double-clicking on the canvas.
+- [✅] If we have one or more boxes selected, we can deselect them by clicking on the canvas.
 
 ---
 

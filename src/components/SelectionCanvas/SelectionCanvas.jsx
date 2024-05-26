@@ -1,10 +1,14 @@
 import React from "react";
+import { observer } from "mobx-react";
+import { applyDelay } from "../../utils/applyDelay";
 import { isBoxOverlapping } from "../../utils/isBoxOverlapping";
 import { BoxSelectionTool } from "../Box/BoxSelectionTool/BoxSelectionTool";
 import { useSelectionToolCoordinates } from "../../hooks/useSelectionToolCoordinates/useSelectionToolCoordinates";
 import "./SelectionCanvas.css";
 
-const SelectionCanvas = React.forwardRef(({ boxes, onMouseUp, onMouseMove, onClick, children }, ref) => {
+const SelectionCanvas = React.forwardRef(({ store, onMouseUp, onMouseMove, children }, ref) => {
+  const { boxes } = store;
+  const isAnyBoxSelected = store.isAnyBoxSelected();
   const boxSelectionToolRef = React.useRef(null);
 
   const calculateSelectedBoxes = (boxes) =>
@@ -12,10 +16,8 @@ const SelectionCanvas = React.forwardRef(({ boxes, onMouseUp, onMouseMove, onCli
       isBoxOverlapping(box.node, boxSelectionToolRef.current),
     );
 
-  const handleMouseUp = () => {
-    if (!boxSelectionToolRef.current) return;
-    const selectedBoxes = calculateSelectedBoxes(boxes);
-    onMouseUp(selectedBoxes);
+  const handleMouseDown = () => {
+    store.setIsSelecting(true);
   };
 
   const handleMouseMove = () => {
@@ -24,8 +26,17 @@ const SelectionCanvas = React.forwardRef(({ boxes, onMouseUp, onMouseMove, onCli
     onMouseMove(hoveredBoxes);
   };
 
-  const { isSelecting, coordinates, ...events } = useSelectionToolCoordinates(
+  const handleMouseUp = () => {
+    if (!boxSelectionToolRef.current) return;
+    const selectedBoxes = calculateSelectedBoxes(boxes);
+    onMouseUp(selectedBoxes);
+    applyDelay(() => store.setIsSelecting(false));
+  };
+
+  const { coordinates, ...events } = useSelectionToolCoordinates(
     {
+      isAnyBoxSelected,
+      handleMouseDown,
       handleMouseMove,
       handleMouseUp,
     },
@@ -36,10 +47,9 @@ const SelectionCanvas = React.forwardRef(({ boxes, onMouseUp, onMouseMove, onCli
       ref={ref}
       role="group"
       className="selection-canvas"
-      onClick={onClick}
       {...events}
     >
-      {isSelecting && (
+      {store.isSelecting && (
         <BoxSelectionTool
           ref={boxSelectionToolRef}
           startCoordinates={coordinates.start}
@@ -51,4 +61,5 @@ const SelectionCanvas = React.forwardRef(({ boxes, onMouseUp, onMouseMove, onCli
   );
 });
 
-export { SelectionCanvas };
+const SelectionCanvasObserver = observer(SelectionCanvas);
+export { SelectionCanvasObserver as SelectionCanvas };

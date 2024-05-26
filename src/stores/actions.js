@@ -84,5 +84,8 @@ export const actions = (self) => {
     setMultipleBoxesSelectedEnabled: (value) => {
       self.isMultipleBoxesSelectedEnabled = value;
     },
+    setIsSelecting: (value) => {
+      self.isSelecting = value;
+    },
   };
 };
