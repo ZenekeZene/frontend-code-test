@@ -4,11 +4,11 @@ import { useSelectionToolCoordinates } from "./useSelectionToolCoordinates";
 import { test } from "vitest";
 
 const DummyComponent = (props) => {
-  const { isSelecting, coordinates, ...events } =
+  const { coordinates, ...events } =
     useSelectionToolCoordinates(props);
 
   return (
-    <p role="alert" aria-pressed={isSelecting} {...events}>
+    <p role="alert" {...events}>
       {JSON.stringify(coordinates)}
     </p>
   );
@@ -21,6 +21,7 @@ const simulateSelection = async (debugNode, { x, y }) => {
 };
 
 const dummyProps = {
+  handleMouseDown: vi.fn(),
   handleMouseUp: vi.fn(),
   handleMouseMove: vi.fn(),
 };
@@ -28,34 +29,6 @@ const dummyProps = {
 describe(`useSelectionToolCoordinates hook:
 	the dummy component using the subject under test,
 	`, () => {
-  describe('has "aria-pressed" attribute ', () => {
-    test(`as false by default`, () => {
-      render(<DummyComponent {...dummyProps} />);
-
-      const debugNode = screen.getByRole("alert");
-
-      expect(debugNode).toHaveAttribute("aria-pressed", "false");
-    });
-
-    test(`as true when the user starts selecting`, () => {
-      render(<DummyComponent {...dummyProps} />);
-
-      const debugNode = screen.getByRole("alert");
-      fireEvent.mouseDown(debugNode);
-
-      expect(debugNode).toHaveAttribute("aria-pressed", "true");
-    });
-
-    test(`as false when the user finishes selecting`, () => {
-      render(<DummyComponent {...dummyProps} />);
-
-      const debugNode = screen.getByRole("alert");
-      simulateSelection(debugNode, { x: 10, y: 10 });
-
-      expect(debugNode).toHaveAttribute("aria-pressed", "false");
-    });
-  });
-
   test(`has the coordinates as the default value by default`, () => {
     render(<DummyComponent {...dummyProps} />);
 
@@ -83,8 +56,9 @@ describe(`useSelectionToolCoordinates hook:
     const handleMouseUp = vi.fn();
     render(
       <DummyComponent
-        handleMouseUp={handleMouseUp}
+        handleMouseDown={vi.fn()}
         handleMouseMove={vi.fn()}
+        handleMouseUp={handleMouseUp}
       />,
     );
     const debugNode = screen.getByRole("alert");
@@ -99,8 +73,9 @@ describe(`useSelectionToolCoordinates hook:
     const handleMouseMove = vi.fn();
     render(
       <DummyComponent
-        handleMouseUp={vi.fn()}
+        handleMouseDown={vi.fn()}
         handleMouseMove={handleMouseMove}
+        handleMouseUp={vi.fn()}
       />,
     );
     const debugNode = screen.getByRole("alert");
@@ -108,5 +83,22 @@ describe(`useSelectionToolCoordinates hook:
     simulateSelection(debugNode, { x: 20, y: 15 });
 
     expect(handleMouseMove).toHaveBeenCalled();
+  });
+
+  test(`given the prop "handleMouseDown", It is called
+    when the user starts selecting`, () => {
+    const handleMouseDown = vi.fn();
+    render(
+      <DummyComponent
+        handleMouseDown={handleMouseDown}
+        handleMouseMove={vi.fn()}
+        handleMouseUp={vi.fn()}
+      />,
+    );
+    const debugNode = screen.getByRole("alert");
+
+    fireEvent.mouseDown(debugNode);
+
+    expect(handleMouseDown).toHaveBeenCalled();
   });
 });

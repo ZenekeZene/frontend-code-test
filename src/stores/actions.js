@@ -1,4 +1,3 @@
-import { createInitialBoxes } from "../stores/initialStore";
 import { PersistService } from "../services/persist.service";
 import { setUndoManager } from "../services/undo.service";
 
@@ -6,11 +5,6 @@ export const actions = (self) => {
   const undoManager = setUndoManager(self).get();
 
   return {
-    afterCreate: () => {
-      undoManager.withoutUndo(() => {
-        createInitialBoxes({ store: self });
-      });
-    },
     loadFromStorage: () => {
       PersistService({ store: self, whitelist: ["boxes"] })
         .persist()

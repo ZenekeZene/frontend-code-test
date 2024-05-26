@@ -3,13 +3,13 @@ import { BoxModel } from "./models/BoxModel";
 import { views } from "./views";
 import { actions } from "./actions";
 
-const MainStore = types
+export const MainStore = types
   .model("MainStore", {
     boxes: types.array(BoxModel),
-    isSelecting: false,
   })
   .volatile(() => ({
     isMultipleBoxesSelectedEnabled: false,
+    isSelecting: false,
   }))
   .actions(actions)
   .views(views);
