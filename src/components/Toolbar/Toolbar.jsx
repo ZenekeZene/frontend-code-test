@@ -25,6 +25,10 @@ const Toolbar = observer(({ store }) => {
     store.changeBackgroundColorOfSelectedBoxes(event.target.value);
   };
 
+  const clear = () => {
+    store.removeAllBoxes();
+  };
+
   const undo = () => undoManager.canUndo && undoManager.undo();
   const redo = () => undoManager.canRedo && undoManager.redo();
 
@@ -83,6 +87,14 @@ const Toolbar = observer(({ store }) => {
           onClick={redo}
         >
           <Icon.Redo />
+        </li>
+        <li
+          className="toolbar__tool"
+          role="button"
+          aria-label="Clear"
+          onClick={clear}
+        >
+          <Icon.Clear />
         </li>
       </ul>
     </nav>
