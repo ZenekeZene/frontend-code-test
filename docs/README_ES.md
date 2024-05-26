@@ -140,7 +140,7 @@ Os dejo algunos trabajos relacionados con front-end:
 
 [Amigue invisible tecth 2020](https://creaunalex.netlify.app/#/).
 
-<img src="./public/sleepy.png" width="400">
+<img src="../public/sleepy.png" width="400">
 
 ## Contacto
 
@@ -152,4 +152,4 @@ Linkedin: [@hectorvillarm](https://www.linkedin.com/in/hectorvillarm/).
 
 Web: [www.zenekezene.com](https://zenekezene.com/)
 
-<img src="./public/selfie.jpeg" width="300" style="border-radius: 10px;">
+<img src="../public/selfie.jpeg" width="300" style="border-radius: 10px;">
