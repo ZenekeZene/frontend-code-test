@@ -17,7 +17,7 @@ const Counter = observer(({ store }) => {
           onClick={store.selectSingleBox}
         />
       </ul>
-      { numberOfSelectedBoxes > 0 && (
+      {numberOfSelectedBoxes > 0 && (
         <span className="counter__value">({numberOfSelectedBoxes})</span>
       )}
     </section>

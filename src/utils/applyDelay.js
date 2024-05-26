@@ -1,7 +1,7 @@
 const applyDelay = (callback, timeout = 0) => {
-	setTimeout(() => {
-		callback();
-	}, timeout);
+  setTimeout(() => {
+    callback();
+  }, timeout);
 };
 
 export { applyDelay };

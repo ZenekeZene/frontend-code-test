@@ -26,8 +26,8 @@ export const createMockedBox = ({ id, text, left = 0, top = 0 }) => {
     left,
     top,
     text,
-    color: 'black',
-    backgroundColor: 'back',
+    color: "black",
+    backgroundColor: "back",
   });
 };
 

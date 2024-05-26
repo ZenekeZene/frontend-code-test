@@ -23,7 +23,7 @@ const getRandomCoordinates = (canvasSize, boxSize) => {
     width = window.innerWidth;
     height = window.innerHeight;
   }
-  const randomX = Math.random() * (width / 2 - boxSize.width) ;
+  const randomX = Math.random() * (width / 2 - boxSize.width);
   const randomY = Math.random() * (height / 2 - boxSize.height);
 
   const coordinates = {

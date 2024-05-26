@@ -1,5 +1,5 @@
 const updateZIndexOrder = ({ boxes, boxToRaise }) => {
-	if (!boxes.length) return { box: null, zIndex: 0 };
+  if (!boxes.length) return { box: null, zIndex: 0 };
   const zIndexThreshold = boxes.length;
 
   let highestZIndexValue = 0;
@@ -11,7 +11,7 @@ const updateZIndexOrder = ({ boxes, boxToRaise }) => {
     }
   });
 
-	// (1)
+  // (1)
   if (highestZIndexValue >= zIndexThreshold) {
     const sortedBoxes = [...boxes].sort((a, b) => {
       const zIndexA = parseInt(a.node.style.zIndex, 10) || 0;

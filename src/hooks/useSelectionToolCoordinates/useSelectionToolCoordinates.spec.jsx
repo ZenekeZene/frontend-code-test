@@ -4,8 +4,7 @@ import { useSelectionToolCoordinates } from "./useSelectionToolCoordinates";
 import { test } from "vitest";
 
 const DummyComponent = (props) => {
-  const { coordinates, ...events } =
-    useSelectionToolCoordinates(props);
+  const { coordinates, ...events } = useSelectionToolCoordinates(props);
 
   return (
     <p role="alert" {...events}>

@@ -36,16 +36,13 @@ const useMultipleDraggable = ({
     [onDragEnd],
   );
 
-  const updateZIndex = React.useCallback(
-    () => {
-      allBoxes.forEach((anotherBox) => {
-        if (boxesToDrag.includes(anotherBox)) {
-          updateZIndexOrder({ boxes: allBoxes, boxToRaise: anotherBox });
-        }
-      });
-    },
-    [allBoxes, boxesToDrag],
-  );
+  const updateZIndex = React.useCallback(() => {
+    allBoxes.forEach((anotherBox) => {
+      if (boxesToDrag.includes(anotherBox)) {
+        updateZIndexOrder({ boxes: allBoxes, boxToRaise: anotherBox });
+      }
+    });
+  }, [allBoxes, boxesToDrag]);
 
   React.useEffect(() => {
     if (!boxesToDrag) return;

@@ -5,8 +5,8 @@ import { getUndoManager } from "../../services/undo.service";
 const undoManager = getUndoManager();
 
 const useKeyboardShortcuts = ({ store }) => {
-	useHotkeys("Delete", store.removeSelectedBoxes);
-	useHotkeys("Escape", store.unselectAllBoxes);
+  useHotkeys("Delete", store.removeSelectedBoxes);
+  useHotkeys("Escape", store.unselectAllBoxes);
   useHotkeys("Backspace", store.removeSelectedBoxes);
 
   useKeyPress({
@@ -16,12 +16,17 @@ const useKeyboardShortcuts = ({ store }) => {
     },
     onUp: () => {
       store.setMultipleBoxesSelectedEnabled(false);
-    }
+    },
   });
 
-  useHotkeys(["ctrl+z", "meta+z"], () => undoManager.canUndo && undoManager.undo());
-  useHotkeys(["ctrl+shift+z", "meta+shift+z"], () => undoManager.canRedo && undoManager.redo());
-
+  useHotkeys(
+    ["ctrl+z", "meta+z"],
+    () => undoManager.canUndo && undoManager.undo(),
+  );
+  useHotkeys(
+    ["ctrl+shift+z", "meta+shift+z"],
+    () => undoManager.canRedo && undoManager.redo(),
+  );
 };
 
 export { useKeyboardShortcuts };

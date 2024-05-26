@@ -24,7 +24,7 @@ const BoxSelectionTool = React.forwardRef(
       <div
         ref={ref}
         style={style}
-        className={`box-selection-tool ${isSelecting ? '--is-visible' : ''}`}
+        className={`box-selection-tool ${isSelecting ? "--is-visible" : ""}`}
         aria-label="box selection tool"
       ></div>
     );

@@ -2,7 +2,12 @@ import React from "react";
 
 const coordinatesByDefault = { x: 0, y: 0 };
 
-const useSelectionToolCoordinates = ({  isAnyBoxSelected, handleMouseDown, handleMouseMove, handleMouseUp }) => {
+const useSelectionToolCoordinates = ({
+  isAnyBoxSelected,
+  handleMouseDown,
+  handleMouseMove,
+  handleMouseUp,
+}) => {
   const hasStarted = React.useRef(false);
   const [startCoordinates, setStartCoordinates] =
     React.useState(coordinatesByDefault);

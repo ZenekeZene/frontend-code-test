@@ -138,9 +138,21 @@ describe("useMultipleDraggable hook:", () => {
     simulateSelection(indifferentBoxElementForDragging, { x: 100, y: 150 });
 
     expect(onDragEnd).toHaveBeenCalledTimes(4);
-    expect(onDragEnd).toHaveBeenNthCalledWith(1, boxesToDrag[0], { x: 100, y: 150 });
-    expect(onDragEnd).toHaveBeenNthCalledWith(2, boxesToDrag[1], { x: 300, y: 250 });
-    expect(onDragEnd).toHaveBeenNthCalledWith(3, boxesToDrag[2], { x: 500, y: 350 });
-    expect(onDragEnd).toHaveBeenNthCalledWith(4, boxesToDrag[3], { x: 700, y: 450 });
+    expect(onDragEnd).toHaveBeenNthCalledWith(1, boxesToDrag[0], {
+      x: 100,
+      y: 150,
+    });
+    expect(onDragEnd).toHaveBeenNthCalledWith(2, boxesToDrag[1], {
+      x: 300,
+      y: 250,
+    });
+    expect(onDragEnd).toHaveBeenNthCalledWith(3, boxesToDrag[2], {
+      x: 500,
+      y: 350,
+    });
+    expect(onDragEnd).toHaveBeenNthCalledWith(4, boxesToDrag[3], {
+      x: 700,
+      y: 450,
+    });
   });
 });

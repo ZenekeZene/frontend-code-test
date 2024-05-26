@@ -22,10 +22,7 @@ const Box = React.forwardRef((props, ref) => {
   };
 
   return (
-    <BoxDraggable {...props}
-      ref={localRef}
-      onDoubleClick={handleDoubleClick}
-    >
+    <BoxDraggable {...props} ref={localRef} onDoubleClick={handleDoubleClick}>
       <BoxFolderAesthetic
         height={props.height}
         darkerBackgroundColor={box.darkerBackgroundColor}

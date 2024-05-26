@@ -1,11 +1,14 @@
 import React from "react";
 import { render, fireEvent, screen } from "@testing-library/react";
 import { SelectionCanvas } from "./SelectionCanvas";
-import { getStoreMockedWithBoxes, createMockedBox } from "../../stores/__mocks__/MainStore.mock";
+import {
+  getStoreMockedWithBoxes,
+  createMockedBox,
+} from "../../stores/__mocks__/MainStore.mock";
 
 const mockNode = (box, rest) => {
   const node = document.createElement("div");
-  node.getBoundingClientRect = () => (rest);
+  node.getBoundingClientRect = () => rest;
   box.setNode(node);
   return box;
 };
@@ -26,9 +29,24 @@ describe(`SelectionCanvas component:`, () => {
     const onMouseUp = vi.fn();
     const onMouseMove = vi.fn();
     const boxes = [
-      mockNode(createMockedBox({ id: "foo" }), { top: 0, left: 0, right: 10, bottom: 10 }),
-      mockNode(createMockedBox({ id: "bar" }), { top: 100, left: 90, right: 110, bottom: 110 }),
-      mockNode(createMockedBox({ id: "baz" }), { top: 1000, left: 1000, right: 1010, bottom: 1010}),
+      mockNode(createMockedBox({ id: "foo" }), {
+        top: 0,
+        left: 0,
+        right: 10,
+        bottom: 10,
+      }),
+      mockNode(createMockedBox({ id: "bar" }), {
+        top: 100,
+        left: 90,
+        right: 110,
+        bottom: 110,
+      }),
+      mockNode(createMockedBox({ id: "baz" }), {
+        top: 1000,
+        left: 1000,
+        right: 1010,
+        bottom: 1010,
+      }),
     ];
     const store = getStoreMockedWithBoxes(boxes);
     const expected = expectedSelectedNodes(store.boxes, ["foo"]);
