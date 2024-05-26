@@ -3,6 +3,7 @@ import { observer } from "mobx-react";
 import { isAlive } from "mobx-state-tree";
 import { canvasSize } from "../../constants/canvas";
 import { useKeyboardShortcuts } from "./useKeyboardShortcuts";
+import { updateZIndexOrder } from "../../utils/updateZIndexOrder";
 import { useMultipleDraggable } from "../../hooks/useMultipleDraggable/useMultipleDraggable";
 import { DragService } from "../../services/drag.service";
 import { SelectionCanvas } from "../SelectionCanvas/SelectionCanvas";
@@ -11,6 +12,7 @@ import BoxEditable from "../Box/BoxEditable/BoxEditable";
 const Canvas = ({ store }) => {
   const selectionCanvasRef = React.useRef();
   const [singleBoxToDrag, setSingleBoxToDrag] = React.useState(null);
+  const boxes = store.boxes;
   const selectedBoxes = store.getSelectedBoxes();
   const areMultipleBoxesSelected = store.areMultipleBoxesSelected();
   const isSingleBoxToDrag = singleBoxToDrag && !areMultipleBoxesSelected;
@@ -35,6 +37,7 @@ const Canvas = ({ store }) => {
   };
 
   const handleManualSelection = (box) => {
+    updateZIndexOrder({ boxes, boxToRaise: box });
     if (!isAlive(box)) return;
     if (store.isMultipleBoxesSelectedEnabled) {
       store.selectBox(box);

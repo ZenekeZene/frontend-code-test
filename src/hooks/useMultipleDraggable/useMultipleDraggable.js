@@ -1,5 +1,6 @@
 import React from "react";
 import { isAlive } from "mobx-state-tree";
+import { updateZIndexOrder } from "../../utils/updateZIndexOrder";
 
 const useMultipleDraggable = ({
   boxesToDrag,
@@ -39,10 +40,8 @@ const useMultipleDraggable = ({
     () => {
       allBoxes.forEach((anotherBox) => {
         if (boxesToDrag.includes(anotherBox)) {
-          anotherBox.node.style.zIndex = allBoxes.length + 1;
-          return;
+          updateZIndexOrder({ boxes: allBoxes, boxToRaise: anotherBox });
         }
-        anotherBox.node.style.zIndex = 0;
       });
     },
     [allBoxes, boxesToDrag],
@@ -64,11 +63,9 @@ const useMultipleDraggable = ({
           updateZIndex();
         },
         move: (event) => {
-          updateZIndex();
           boxesAlive.forEach(dragMoveListener(event));
         },
         end: () => {
-          updateZIndex();
           boxesAlive.forEach(dragEndListener);
         },
       };
